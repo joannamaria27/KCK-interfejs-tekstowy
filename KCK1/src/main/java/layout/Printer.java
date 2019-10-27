@@ -101,7 +101,7 @@ public class Printer {
         final String OPTION_1 = "1. TYP: ";
         final String OPTION_2 = "2. MODEL: ";
         final String OPTION_3 = "3. MARKA: ";
-        final String OPTION_4 = "4. DOSTEPNOSC: ";
+        final String OPTION_4 = "4. NR_UBEZPIECZENIA:: ";
         final String OPTION_5 = "5. STAN DOSTEPU: ";
         final String OPTION_6 = "6. DOSTEPNOSC: ";
         optionsTexts[0] = OPTION_1;
@@ -191,7 +191,7 @@ public class Printer {
         final String OPTION_1 = "1. TYP: ";
         final String OPTION_2 = "2. MODEL: ";
         final String OPTION_3 = "3. MARKA: ";
-        final String OPTION_4 = "4. DOSTEPNOSC: ";
+        final String OPTION_4 = "4. NR_UBEZPIECZENIA:: ";
         final String OPTION_5 = "5. STAN DOSTEPU: ";
         final String OPTION_6 = "6. DOSTEPNOSC: ";
         optionsTexts[0] = OPTION_1;
@@ -269,7 +269,7 @@ public class Printer {
         final String OPTION_1 = "1. TYP: ";
         final String OPTION_2 = "2. MODEL: ";
         final String OPTION_3 = "3. MARKA: ";
-        final String OPTION_4 = "4. DOSTEPNOSC: ";
+        final String OPTION_4 = "4. NR_UBEZPIECZENIA: ";
         final String OPTION_5 = "5. STAN DOSTEPU: ";
         final String OPTION_6 = "6. DOSTEPNOSC: ";
         optionsTexts[0] = OPTION_1;
