@@ -8,23 +8,32 @@ import javax.persistence.Id;
     @Id
     @GeneratedValue
     private long id;
+    private String typ;
     private String marka;
     private String model;
+    private String id_ubezpieczenia;
     private String stan_pojazdu;
-    private boolean dostepnosc;
+    private String dostepnosc;
 
-    public Pojazd(String marka_, String model_, String stan_pojazdu_, boolean dostepnosc_){
+
+    public Pojazd(String typ_, String marka_, String model_, String id_ubezpieczenia_, String stan_pojazdu_, String dostepnosc_){
+
+        typ=typ_;
         marka = marka_;
         model = model_;
+        id_ubezpieczenia=id_ubezpieczenia_;
         stan_pojazdu = stan_pojazdu_;
         dostepnosc = dostepnosc_;
     }
 
     public Pojazd(String[] choices){
-        marka = choices[0];
-        model = choices[0];
-        stan_pojazdu = choices[0];
-        if(choices[3].equals("tak")) dostepnosc = true;
+        typ=choices[0];
+        marka = choices[1];
+        model = choices[2];
+        id_ubezpieczenia=choices[3];
+        stan_pojazdu = choices[4];
+        dostepnosc = choices[5];
+
     }
 
 
