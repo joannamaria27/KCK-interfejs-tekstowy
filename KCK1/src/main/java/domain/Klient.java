@@ -11,13 +11,24 @@ public class Klient {
     @GeneratedValue
     private long id;
     private String nr_prawa_jazdy;
-    private String numer_tel;
+    private String nazwisko;
+    private String imie;
+    private String data_urodzenia;
+    private String adres;
+    private String pesel;
+    private String telefon;
     //private Adres adres;
 
-    public Klient(long id_, String nr_prawa_jazdy_, String numer_tel_){
-        id = id_;
-        nr_prawa_jazdy = nr_prawa_jazdy_;
-        numer_tel = numer_tel_;
+    public Klient(String nr_prawa_jazdy_, String nazwisko_, String imie_, String data_urodzenia_, String adres_, String pesel_, String telefon_){
+
+        nr_prawa_jazdy=nr_prawa_jazdy_;
+        nazwisko=nazwisko_;
+        imie=imie_;
+        data_urodzenia=data_urodzenia_;
+        adres=adres_;
+        pesel=pesel_;
+        telefon=telefon_;
+
     }
 
 
