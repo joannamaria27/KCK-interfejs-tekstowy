@@ -10,17 +10,17 @@ public class Wypozyczenie {
     @GeneratedValue
     private long id;
     @OneToOne
-    private long id_pojazdu;
+    private Pojazd id_pojazdu;
     private String data_wypozyczenia;
     private String data_oddania;
     private String kod_dostepu;
     @OneToOne
-    private long id_klienta;
+    private Klient id_klienta;
     private Float cena;
     private String pracownik;
 
 
-    public Wypozyczenie(long id_pojazdu_, String data_wypozyczenia_,String data_oddania_, String kod_dostepu_, long id_klienta_, Float cena_, String pracownik_){
+    public Wypozyczenie(Pojazd id_pojazdu_, String data_wypozyczenia_,String data_oddania_, String kod_dostepu_, Klient id_klienta_, Float cena_, String pracownik_){
         id_pojazdu = id_pojazdu_;
         data_wypozyczenia = data_wypozyczenia_;
         data_oddania=data_oddania_;
@@ -38,11 +38,11 @@ public class Wypozyczenie {
         this.id = id;
     }
 
-    public long getId_pojazdu() {
+    public Pojazd getId_pojazdu() {
         return id_pojazdu;
     }
 
-    public void setId_pojazdu(long id_pojazdu) {
+    public void setId_pojazdu(Pojazd id_pojazdu) {
         this.id_pojazdu = id_pojazdu;
     }
 
@@ -70,11 +70,11 @@ public class Wypozyczenie {
         this.kod_dostepu = kod_dostepu;
     }
 
-    public long getId_klienta() {
+    public Klient getId_klienta() {
         return id_klienta;
     }
 
-    public void setId_klienta(long id_klienta) {
+    public void setId_klienta(Klient id_klienta) {
         this.id_klienta = id_klienta;
     }
 
