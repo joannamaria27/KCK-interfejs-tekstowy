@@ -9,24 +9,25 @@ public class Wypozyczenie {
     @Id
     @GeneratedValue
     private long id;
+    @OneToOne
     private long id_pojazdu;
-    private Date data_wypozyczenia;
-    private int kod_dostepu;
-    private String stan_pojazdu;
-    //@OneToOne
-
+    private String data_wypozyczenia;
+    private String data_oddania;
+    private String kod_dostepu;
+    @OneToOne
     private long id_klienta;
-    private int kaucja;
-    private long id_pracownika;
+    private Float cena;
+    private String pracownik;
 
-    public Wypozyczenie(long id_pojazdu_, Date data_wypozyczenia_, int kod_dostepu_, String stan_pojazdu_, long id_klienta_, int kaucja_, long id_pracownika_){
+
+    public Wypozyczenie(long id_pojazdu_, String data_wypozyczenia_,String data_oddania_, String kod_dostepu_, long id_klienta_, Float cena_, String pracownik_){
         id_pojazdu = id_pojazdu_;
         data_wypozyczenia = data_wypozyczenia_;
+        data_oddania=data_oddania_;
         kod_dostepu = kod_dostepu_;
-        stan_pojazdu = stan_pojazdu_;
         id_klienta = id_klienta_;
-        kaucja = kaucja_;
-        id_pracownika = id_pracownika_;
+        cena=cena_;
+        pracownik=pracownik_;
     }
 
     public long getId() {
@@ -45,28 +46,28 @@ public class Wypozyczenie {
         this.id_pojazdu = id_pojazdu;
     }
 
-    public Date getData_wypozyczenia() {
+    public String getData_wypozyczenia() {
         return data_wypozyczenia;
     }
 
-    public void setData_wypozyczenia(Date data_wypozyczenia) {
+    public void setData_wypozyczenia(String data_wypozyczenia) {
         this.data_wypozyczenia = data_wypozyczenia;
     }
 
-    public int getKod_dostepu() {
+    public String getData_oddania() {
+        return data_oddania;
+    }
+
+    public void setData_oddania(String data_oddania) {
+        this.data_oddania = data_oddania;
+    }
+
+    public String getKod_dostepu() {
         return kod_dostepu;
     }
 
-    public void setKod_dostepu(int kod_dostepu) {
+    public void setKod_dostepu(String kod_dostepu) {
         this.kod_dostepu = kod_dostepu;
-    }
-
-    public String getStan_pojazdu() {
-        return stan_pojazdu;
-    }
-
-    public void setStan_pojazdu(String stan_pojazdu) {
-        this.stan_pojazdu = stan_pojazdu;
     }
 
     public long getId_klienta() {
@@ -77,19 +78,19 @@ public class Wypozyczenie {
         this.id_klienta = id_klienta;
     }
 
-    public int getKaucja() {
-        return kaucja;
+    public Float getCena() {
+        return cena;
     }
 
-    public void setKaucja(int kaucja) {
-        this.kaucja = kaucja;
+    public void setCena(Float cena) {
+        this.cena = cena;
     }
 
-    public long getId_pracownika() {
-        return id_pracownika;
+    public String getPracownik() {
+        return pracownik;
     }
 
-    public void setId_pracownika(long id_pracownika) {
-        this.id_pracownika = id_pracownika;
+    public void setPracownik(String pracownik) {
+        this.pracownik = pracownik;
     }
 }
