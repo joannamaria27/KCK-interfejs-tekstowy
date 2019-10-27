@@ -96,16 +96,20 @@ public class Printer {
     }
 
     public static int printCarInputMenu() throws IOException {
-        int options = 4, localMargin = 10;
+        int options = 6, localMargin = 10;
         optionsTexts = new String[options];
-        final String OPTION_1 = "1. Marka: ";
-        final String OPTION_2 = "2. Model: ";
-        final String OPTION_3 = "3. Stan pojazdu: ";
-        final String OPTION_4 = "4. Dostępność";
+        final String OPTION_1 = "1. TYP: ";
+        final String OPTION_2 = "2. MODEL: ";
+        final String OPTION_3 = "3. MARKA: ";
+        final String OPTION_4 = "4. DOSTEPNOSC: ";
+        final String OPTION_5 = "5. STAN DOSTEPU: ";
+        final String OPTION_6 = "6. DOSTEPNOSC: ";
         optionsTexts[0] = OPTION_1;
         optionsTexts[1] = OPTION_2;
         optionsTexts[2] = OPTION_3;
         optionsTexts[3] = OPTION_4;
+        optionsTexts[4] = OPTION_5;
+        optionsTexts[5] = OPTION_6;
 
         STerminal sTerminal = STerminal.getInstance();
 
@@ -118,9 +122,11 @@ public class Printer {
         sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+2, OPTION_2);
         sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+3, OPTION_3);
         sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+4, OPTION_4);
+        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+5, OPTION_5);
+        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+6, OPTION_6);
         sTerminal.getScreen().refresh();
 
-        String[] choices = UserInput.getUserInput(4);
+        String[] choices = UserInput.getUserInput(6);
         DBConnector dbConnector = DBConnector.getInstance();
         Pojazd pojazd = new Pojazd(choices);
         dbConnector.addPojazd(pojazd);
@@ -180,16 +186,20 @@ public class Printer {
 
     }
     public static int printBicycleInputMenu() throws IOException {
-        int options = 4, localMargin = 10;
+        int options = 6, localMargin = 10;
         optionsTexts = new String[options];
-        final String OPTION_1 = "1. Marka: ";
-        final String OPTION_2 = "2. Model: ";
-        final String OPTION_3 = "3. Stan pojazdu: ";
-        final String OPTION_4 = "4. Dostępność";
+        final String OPTION_1 = "1. TYP: ";
+        final String OPTION_2 = "2. MODEL: ";
+        final String OPTION_3 = "3. MARKA: ";
+        final String OPTION_4 = "4. DOSTEPNOSC: ";
+        final String OPTION_5 = "5. STAN DOSTEPU: ";
+        final String OPTION_6 = "6. DOSTEPNOSC: ";
         optionsTexts[0] = OPTION_1;
         optionsTexts[1] = OPTION_2;
         optionsTexts[2] = OPTION_3;
         optionsTexts[3] = OPTION_4;
+        optionsTexts[4] = OPTION_5;
+        optionsTexts[5] = OPTION_6;
 
         STerminal sTerminal = STerminal.getInstance();
 
@@ -202,6 +212,8 @@ public class Printer {
         sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+2, OPTION_2);
         sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+3, OPTION_3);
         sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+4, OPTION_4);
+        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+5, OPTION_5);
+        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+6, OPTION_6);
         sTerminal.getScreen().refresh();
 
         String[] choices = UserInput.getUserInput(4);
@@ -252,16 +264,20 @@ public class Printer {
     }
 
     public static int printScooterInputMenu() throws IOException {
-        int options = 4, localMargin = 10;
+        int options = 6, localMargin = 10;
         optionsTexts = new String[options];
-        final String OPTION_1 = "1. Marka: ";
-        final String OPTION_2 = "2. Model: ";
-        final String OPTION_3 = "3. Stan pojazdu: ";
-        final String OPTION_4 = "4. Dostępność";
+        final String OPTION_1 = "1. TYP: ";
+        final String OPTION_2 = "2. MODEL: ";
+        final String OPTION_3 = "3. MARKA: ";
+        final String OPTION_4 = "4. DOSTEPNOSC: ";
+        final String OPTION_5 = "5. STAN DOSTEPU: ";
+        final String OPTION_6 = "6. DOSTEPNOSC: ";
         optionsTexts[0] = OPTION_1;
         optionsTexts[1] = OPTION_2;
         optionsTexts[2] = OPTION_3;
         optionsTexts[3] = OPTION_4;
+        optionsTexts[4] = OPTION_5;
+        optionsTexts[5] = OPTION_6;
 
         STerminal sTerminal = STerminal.getInstance();
 
@@ -270,10 +286,14 @@ public class Printer {
         int margin = sTerminal.getMargin();
 
         sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow, "Podaj dane", SGR.BOLD);
+        //todo
+        //typ automatycznie dodawany
         sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+1, OPTION_1);
         sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+2, OPTION_2);
         sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+3, OPTION_3);
         sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+4, OPTION_4);
+        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+5, OPTION_5);
+        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+6, OPTION_6);
         sTerminal.getScreen().refresh();
 
         String[] choices = UserInput.getUserInput(4);
