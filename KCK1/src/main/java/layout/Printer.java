@@ -31,17 +31,17 @@ public class Printer {
         int workspaceRow = sTerminal.getWorkspacePosition().getRow();
         int margin = sTerminal.getMargin();
 
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow, "Wybierz pojazd", SGR.BOLD);
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+1, "1. Samochód", SGR.REVERSE);
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+2, "2. Skuter");
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+3, "3. Rower");
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow, "Wybierz pojazd", SGR.BOLD);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 1, "1. Samochód", SGR.REVERSE);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 2, "2. Skuter");
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 3, "3. Rower");
         sTerminal.getScreen().refresh();
 
         int choice = UserInput.chooseOption(Printer.getMenuOptions());
-        if(choice == -1) return -1;
-        else if(choice == 1) printCarMenu();
-        else if(choice == 2) printScooterMenu();
-        else if(choice == 3) printBicycleMenu();
+        if (choice == -1) return -1;
+        else if (choice == 1) printCarMenu();
+        else if (choice == 2) printScooterMenu();
+        else if (choice == 3) printBicycleMenu();
 
 
         return 0;
@@ -53,8 +53,9 @@ public class Printer {
         int workspaceRow = sTerminal.getWorkspacePosition().getRow();
         int margin = sTerminal.getMargin();
         for (int i = 0; i < optionsArray.length; i++) {
-            if(currentOption == i) sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+i+1, optionsArray[i], SGR.REVERSE);
-            else sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+i+1, optionsArray[i]);
+            if (currentOption == i)
+                sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + i + 1, optionsArray[i], SGR.REVERSE);
+            else sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + i + 1, optionsArray[i]);
         }
         sTerminal.getScreen().refresh();
     }
@@ -79,17 +80,21 @@ public class Printer {
         int workspaceRow = sTerminal.getWorkspacePosition().getRow();
         int margin = sTerminal.getMargin();
 
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow, "Co chcesz zrobić z pojazdem", SGR.BOLD);
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+1, "1. Dodaj", SGR.REVERSE);
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+2, "2. Usuń");
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+3, "3. Edytuj");
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+4, "4. Wypożycz");
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+5, "5. Wypisz");
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow, "Co chcesz zrobić z pojazdem", SGR.BOLD);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 1, "1. Dodaj", SGR.REVERSE);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 2, "2. Usuń");
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 3, "3. Edytuj");
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 4, "4. Wypożycz");
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 5, "5. Wypisz");
         sTerminal.getScreen().refresh();
 
         int choice = UserInput.chooseOption(Printer.getCarMenuOptions());
-        if(choice == -1) return -1;
-        else if(choice == 1) printCarInputMenu();
+        if (choice == -1) return -1;
+        else if (choice == 1) printCarInputMenu();
+//        else if(choice == 2) printCarDeleteMenu();
+//        else if(choice == 3) printCarEditMenu();
+//        else if(choice == 4) printCarRentalMenu();
+//        else if(choice == 5) printCar();
 
         return 0;
 
@@ -117,13 +122,13 @@ public class Printer {
         int workspaceRow = sTerminal.getMenuPosition().getRow();
         int margin = sTerminal.getMargin();
 
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow, "Podaj dane", SGR.BOLD);
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+1, OPTION_1);
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+2, OPTION_2);
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+3, OPTION_3);
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+4, OPTION_4);
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+5, OPTION_5);
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+6, OPTION_6);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow, "Podaj dane", SGR.BOLD);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 1, OPTION_1);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 2, OPTION_2);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 3, OPTION_3);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 4, OPTION_4);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 5, OPTION_5);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 6, OPTION_6);
         sTerminal.getScreen().refresh();
 
         String[] choices = UserInput.getUserInput(6);
@@ -143,9 +148,11 @@ public class Printer {
     public static int getMenuOptions() {
         return menuOptions;
     }
+
     public static int getCarMenuOptions() {
         return carMenuOptions;
     }
+
     public static String[] getOptionsTexts() {
         return optionsTexts;
     }
@@ -170,21 +177,27 @@ public class Printer {
         int workspaceRow = sTerminal.getWorkspacePosition().getRow();
         int margin = sTerminal.getMargin();
 
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow, "Co chcesz zrobić z pojazdem", SGR.BOLD);
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+1, "1. Dodaj", SGR.REVERSE);
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+2, "2. Usuń");
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+3, "3. Edytuj");
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+4, "4. Wypożycz");
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+5, "5. Wypisz");
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow, "Co chcesz zrobić z pojazdem", SGR.BOLD);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 1, "1. Dodaj", SGR.REVERSE);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 2, "2. Usuń");
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 3, "3. Edytuj");
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 4, "4. Wypożycz");
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 5, "5. Wypisz");
         sTerminal.getScreen().refresh();
 
         int choice = UserInput.chooseOption(Printer.getBicycleMenuOptions());
-        if(choice == -1) return -1;
-        else if(choice == 1) printBicycleInputMenu();
+        if (choice == -1) return -1;
+        else if (choice == 1) printBicycleInputMenu();
+//        else if(choice == 2) printBicycleDeleteMenu();
+//        else if(choice == 3) printBicycleEditMenu();
+//        else if(choice == 4) printBicycleRentalMenu();
+//        else if(choice == 5) printBicycle();
+
 
         return 0;
 
     }
+
     public static int printBicycleInputMenu() throws IOException {
         int options = 6, localMargin = 10;
         optionsTexts = new String[options];
@@ -207,22 +220,23 @@ public class Printer {
         int workspaceRow = sTerminal.getMenuPosition().getRow();
         int margin = sTerminal.getMargin();
 
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow, "Podaj dane", SGR.BOLD);
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+1, OPTION_1);
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+2, OPTION_2);
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+3, OPTION_3);
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+4, OPTION_4);
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+5, OPTION_5);
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+6, OPTION_6);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow, "Podaj dane", SGR.BOLD);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 1, OPTION_1);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 2, OPTION_2);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 3, OPTION_3);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 4, OPTION_4);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 5, OPTION_5);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 6, OPTION_6);
         sTerminal.getScreen().refresh();
 
-        String[] choices = UserInput.getUserInput(4);
+        String[] choices = UserInput.getUserInput(6);
         DBConnector dbConnector = DBConnector.getInstance();
         Pojazd pojazd = new Pojazd(choices);
         dbConnector.addPojazd(pojazd);
 
         return 0;
     }
+
     public static int getBicycleMenuOptions() {
         return bicycleMenuOptions;
     }
@@ -247,17 +261,21 @@ public class Printer {
         int workspaceRow = sTerminal.getWorkspacePosition().getRow();
         int margin = sTerminal.getMargin();
 
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow, "Co chcesz zrobić z pojazdem", SGR.BOLD);
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+1, "1. Dodaj", SGR.REVERSE);
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+2, "2. Usuń");
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+3, "3. Edytuj");
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+4, "4. Wypożycz");
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+5, "5. Wypisz");
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow, "Co chcesz zrobić z pojazdem", SGR.BOLD);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 1, "1. Dodaj", SGR.REVERSE);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 2, "2. Usuń");
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 3, "3. Edytuj");
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 4, "4. Wypożycz");
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 5, "5. Wypisz");
         sTerminal.getScreen().refresh();
 
         int choice = UserInput.chooseOption(Printer.getScooterMenuOptions());
-        if(choice == -1) return -1;
-        else if(choice == 1) printScooterInputMenu();
+        if (choice == -1) return -1;
+        else if (choice == 1) printScooterInputMenu();
+//        else if(choice == 2) printScooterDeleteMenu();
+//        else if(choice == 3) printScooterEditMenu();
+//        else if(choice == 4) printScooterRentalMenu();
+//        else if(choice == 5) printScooter();
 
         return 0;
 
@@ -285,18 +303,18 @@ public class Printer {
         int workspaceRow = sTerminal.getMenuPosition().getRow();
         int margin = sTerminal.getMargin();
 
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow, "Podaj dane", SGR.BOLD);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow, "Podaj dane", SGR.BOLD);
         //todo
         //typ automatycznie dodawany
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+1, OPTION_1);
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+2, OPTION_2);
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+3, OPTION_3);
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+4, OPTION_4);
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+5, OPTION_5);
-        sTerminal.getTextGraphics().putString(workspaceColumn+margin, workspaceRow+6, OPTION_6);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 1, OPTION_1);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 2, OPTION_2);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 3, OPTION_3);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 4, OPTION_4);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 5, OPTION_5);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 6, OPTION_6);
         sTerminal.getScreen().refresh();
 
-        String[] choices = UserInput.getUserInput(4);
+        String[] choices = UserInput.getUserInput(6);
         DBConnector dbConnector = DBConnector.getInstance();
         Pojazd pojazd = new Pojazd(choices);
         dbConnector.addPojazd(pojazd);
@@ -307,4 +325,14 @@ public class Printer {
     public static int getScooterMenuOptions() {
         return scooterMenuOptions;
     }
+
+
+    public static void printCar(){
+
+
+
+    }
+
+
+
 }
