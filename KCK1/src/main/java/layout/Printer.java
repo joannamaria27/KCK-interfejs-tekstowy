@@ -1,7 +1,10 @@
 package layout;
 
 import com.googlecode.lanterna.SGR;
+import domain.Klient;
 import domain.Pojazd;
+import domain.Wypozyczenie;
+import jdk.internal.org.objectweb.asm.tree.FieldInsnNode;
 import layout.STerminal;
 
 import java.io.IOException;
@@ -93,7 +96,7 @@ public class Printer {
         else if (choice == 1) printCarInputMenu();
 //        else if(choice == 2) printCarDeleteMenu();
 //        else if(choice == 3) printCarEditMenu();
-//        else if(choice == 4) printCarRentalMenu();
+        else if(choice == 4) printCarRentalMenu();
 //        else if(choice == 5) printCar();
 
         return 0;
@@ -103,12 +106,12 @@ public class Printer {
     public static int printCarInputMenu() throws IOException {
         int options = 6, localMargin = 10;
         optionsTexts = new String[options];
-        final String OPTION_1 = "1. TYP: ";
-        final String OPTION_2 = "2. MODEL: ";
-        final String OPTION_3 = "3. MARKA: ";
-        final String OPTION_4 = "4. NR_UBEZPIECZENIA:: ";
-        final String OPTION_5 = "5. STAN DOSTEPU: ";
-        final String OPTION_6 = "6. DOSTEPNOSC: ";
+        final String OPTION_1 = "1. TYP: SKUTER";
+        final String OPTION_2 = "1. MODEL: ";
+        final String OPTION_3 = "2. MARKA: ";
+        final String OPTION_4 = "3. NR_UBEZPIECZENIA:: ";
+        final String OPTION_5 = "4. STAN DOSTEPU: ";
+        final String OPTION_6 = "5. DOSTEPNOSC: ";
         optionsTexts[0] = OPTION_1;
         optionsTexts[1] = OPTION_2;
         optionsTexts[2] = OPTION_3;
@@ -190,7 +193,7 @@ public class Printer {
         else if (choice == 1) printBicycleInputMenu();
 //        else if(choice == 2) printBicycleDeleteMenu();
 //        else if(choice == 3) printBicycleEditMenu();
-//        else if(choice == 4) printBicycleRentalMenu();
+        else if(choice == 4) printBicycleRentalMenu();
 //        else if(choice == 5) printBicycle();
 
 
@@ -201,12 +204,12 @@ public class Printer {
     public static int printBicycleInputMenu() throws IOException {
         int options = 6, localMargin = 10;
         optionsTexts = new String[options];
-        final String OPTION_1 = "1. TYP: ";
-        final String OPTION_2 = "2. MODEL: ";
-        final String OPTION_3 = "3. MARKA: ";
-        final String OPTION_4 = "4. NR_UBEZPIECZENIA:: ";
-        final String OPTION_5 = "5. STAN DOSTEPU: ";
-        final String OPTION_6 = "6. DOSTEPNOSC: ";
+        final String OPTION_1 = "1. TYP: ROWER";
+        final String OPTION_2 = "1. MODEL: ";
+        final String OPTION_3 = "2. MARKA: ";
+        final String OPTION_4 = "3. NR_UBEZPIECZENIA:: ";
+        final String OPTION_5 = "4. STAN DOSTEPU: ";
+        final String OPTION_6 = "5. DOSTEPNOSC: ";
         optionsTexts[0] = OPTION_1;
         optionsTexts[1] = OPTION_2;
         optionsTexts[2] = OPTION_3;
@@ -274,7 +277,7 @@ public class Printer {
         else if (choice == 1) printScooterInputMenu();
 //        else if(choice == 2) printScooterDeleteMenu();
 //        else if(choice == 3) printScooterEditMenu();
-//        else if(choice == 4) printScooterRentalMenu();
+        else if(choice == 4) printScooterRentalMenu();
 //        else if(choice == 5) printScooter();
 
         return 0;
@@ -284,12 +287,12 @@ public class Printer {
     public static int printScooterInputMenu() throws IOException {
         int options = 6, localMargin = 10;
         optionsTexts = new String[options];
-        final String OPTION_1 = "1. TYP: ";
-        final String OPTION_2 = "2. MODEL: ";
-        final String OPTION_3 = "3. MARKA: ";
-        final String OPTION_4 = "4. NR_UBEZPIECZENIA: ";
-        final String OPTION_5 = "5. STAN DOSTEPU: ";
-        final String OPTION_6 = "6. DOSTEPNOSC: ";
+        final String OPTION_1 = "1. TYP: SKUTER";
+        final String OPTION_2 = "1. MODEL: ";
+        final String OPTION_3 = "2. MARKA: ";
+        final String OPTION_4 = "3. NR_UBEZPIECZENIA:: ";
+        final String OPTION_5 = "4. STAN DOSTEPU: ";
+        final String OPTION_6 = "5. DOSTEPNOSC: ";
         optionsTexts[0] = OPTION_1;
         optionsTexts[1] = OPTION_2;
         optionsTexts[2] = OPTION_3;
@@ -304,8 +307,8 @@ public class Printer {
         int margin = sTerminal.getMargin();
 
         sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow, "Podaj dane", SGR.BOLD);
-        //todo
-        //typ automatycznie dodawany
+//todo
+// dodanie klienta i pojazdu
         sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 1, OPTION_1);
         sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 2, OPTION_2);
         sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 3, OPTION_3);
@@ -327,11 +330,191 @@ public class Printer {
     }
 
 
-    public static void printCar(){
+    public static int printScooterRentalMenu() throws IOException {
 
+        int options = 7, localMargin = 10;
+        optionsTexts = new String[options];
+        final String OPTION_1 = "1. POJAZD: SKUTER";
+        final String OPTION_2 = "1. DATA WYPOZYCZENIA: ";
+        final String OPTION_3 = "2. DATA ODDANIA: ";
+        final String OPTION_4 = "3. KOD DOSTEPU: ";
+        final String OPTION_5 = "4. KLIENT: ";
+        final String OPTION_6 = "5. CENA: ";
+        final String OPTION_7 = "6. PRACWNIK";
+        optionsTexts[0] = OPTION_1;
+        optionsTexts[1] = OPTION_2;
+        optionsTexts[2] = OPTION_3;
+        optionsTexts[3] = OPTION_4;
+        optionsTexts[4] = OPTION_5;
+        optionsTexts[5] = OPTION_6;
+        optionsTexts[6] = OPTION_7;
 
+        STerminal sTerminal = STerminal.getInstance();
+
+        int workspaceColumn = sTerminal.getMenuPosition().getColumn();
+        int workspaceRow = sTerminal.getMenuPosition().getRow();
+        int margin = sTerminal.getMargin();
+
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow, "Podaj dane", SGR.BOLD);
+
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 1, OPTION_1);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 2, OPTION_2);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 3, OPTION_3);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 4, OPTION_4);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 5, OPTION_5);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 6, OPTION_6);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 7, OPTION_7);
+        sTerminal.getScreen().refresh();
+//todo
+// dodanie klienta i pojazdu
+
+        String[] choices = UserInput.getUserInput(7);
+        DBConnector dbConnector = DBConnector.getInstance();
+        Wypozyczenie wypozyczenie = new Wypozyczenie(choices);
+        dbConnector.addWypozyczenie(wypozyczenie);
+
+        return 0;
 
     }
+    public static int printCarRentalMenu() throws IOException {
+
+        int options = 7, localMargin = 10;
+        optionsTexts = new String[options];
+        final String OPTION_1 = "1. POJAZD: AUTO";
+        final String OPTION_2 = "1. DATA WYPOZYCZENIA: ";
+        final String OPTION_3 = "2. DATA ODDANIA: ";
+        final String OPTION_4 = "3. KOD DOSTEPU: ";
+        final String OPTION_5 = "4. KLIENT: ";
+        final String OPTION_6 = "5. CENA: ";
+        final String OPTION_7 = "6. PRACWNIK";
+        optionsTexts[0] = OPTION_1;
+        optionsTexts[1] = OPTION_2;
+        optionsTexts[2] = OPTION_3;
+        optionsTexts[3] = OPTION_4;
+        optionsTexts[4] = OPTION_5;
+        optionsTexts[5] = OPTION_6;
+        optionsTexts[6] = OPTION_7;
+
+        STerminal sTerminal = STerminal.getInstance();
+
+        int workspaceColumn = sTerminal.getMenuPosition().getColumn();
+        int workspaceRow = sTerminal.getMenuPosition().getRow();
+        int margin = sTerminal.getMargin();
+
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow, "Podaj dane", SGR.BOLD);
+//todo
+// dodanie klienta i pojazdu
+
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 1, OPTION_1);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 2, OPTION_2);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 3, OPTION_3);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 4, OPTION_4);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 5, OPTION_5);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 6, OPTION_6);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 7, OPTION_7);
+        sTerminal.getScreen().refresh();
+
+        String[] choices = UserInput.getUserInput(7);
+        DBConnector dbConnector = DBConnector.getInstance();
+        Wypozyczenie wypozyczenie = new Wypozyczenie(choices);
+        dbConnector.addWypozyczenie(wypozyczenie);
+
+        return 0;
+
+    }
+
+    public static int printBicycleRentalMenu() throws IOException {
+
+        int options = 7, localMargin = 10;
+        optionsTexts = new String[options];
+        final String OPTION_1 = "1. POJAZD: ROWER";
+        final String OPTION_2 = "1. DATA WYPOZYCZENIA: ";
+        final String OPTION_3 = "2. DATA ODDANIA: ";
+        final String OPTION_4 = "3. KOD DOSTEPU: ";
+        final String OPTION_5 = "4. KLIENT: ";
+        final String OPTION_6 = "5. CENA: ";
+        final String OPTION_7 = "6. PRACWNIK";
+        optionsTexts[0] = OPTION_1;
+        optionsTexts[1] = OPTION_2;
+        optionsTexts[2] = OPTION_3;
+        optionsTexts[3] = OPTION_4;
+        optionsTexts[4] = OPTION_5;
+        optionsTexts[5] = OPTION_6;
+        optionsTexts[6] = OPTION_7;
+
+        STerminal sTerminal = STerminal.getInstance();
+
+        int workspaceColumn = sTerminal.getMenuPosition().getColumn();
+        int workspaceRow = sTerminal.getMenuPosition().getRow();
+        int margin = sTerminal.getMargin();
+
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow, "Podaj dane", SGR.BOLD);
+        //todo
+        //typ automatycznie dodawany
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 1, OPTION_1);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 2, OPTION_2);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 3, OPTION_3);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 4, OPTION_4);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 5, OPTION_5);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 6, OPTION_6);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 7, OPTION_7);
+        sTerminal.getScreen().refresh();
+
+        String[] choices = UserInput.getUserInput(7);
+        DBConnector dbConnector = DBConnector.getInstance();
+        Wypozyczenie wypozyczenie = new Wypozyczenie(choices);
+        dbConnector.addWypozyczenie(wypozyczenie);
+
+        return 0;
+
+    }
+
+    public static int printAddClientMenu() throws IOException {
+
+        int options = 7, localMargin = 10;
+        optionsTexts = new String[options];
+        final String OPTION_1 = "1. NUMER PRAWA JAZDY: ";
+        final String OPTION_2 = "1. NAZWISKO: ";
+        final String OPTION_3 = "2. IMIE: ";
+        final String OPTION_4 = "3. DATA URODZENIA: ";
+        final String OPTION_5 = "4. ADRES: ";
+        final String OPTION_6 = "5. PESEL: ";
+        final String OPTION_7 = "6. TELEFON";
+        optionsTexts[0] = OPTION_1;
+        optionsTexts[1] = OPTION_2;
+        optionsTexts[2] = OPTION_3;
+        optionsTexts[3] = OPTION_4;
+        optionsTexts[4] = OPTION_5;
+        optionsTexts[5] = OPTION_6;
+        optionsTexts[6] = OPTION_7;
+
+
+        STerminal sTerminal = STerminal.getInstance();
+
+        int workspaceColumn = sTerminal.getMenuPosition().getColumn();
+        int workspaceRow = sTerminal.getMenuPosition().getRow();
+        int margin = sTerminal.getMargin();
+
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow, "Podaj dane", SGR.BOLD);
+        //todo
+        //typ automatycznie dodawany
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 1, OPTION_1);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 2, OPTION_2);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 3, OPTION_3);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 4, OPTION_4);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 5, OPTION_5);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 6, OPTION_6);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 7, OPTION_7);
+        sTerminal.getScreen().refresh();
+
+        String[] choices = UserInput.getUserInput(7);
+        DBConnector dbConnector = DBConnector.getInstance();
+        Klient klient = new Klient(choices);
+        dbConnector.addKlient(klient);
+
+        return 0;
+    }
+
 
 
 
