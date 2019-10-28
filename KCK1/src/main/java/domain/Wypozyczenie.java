@@ -93,4 +93,18 @@ public class Wypozyczenie {
     public void setPracownik(String pracownik) {
         this.pracownik = pracownik;
     }
+
+
+    public Wypozyczenie(String[] choices){ //, Pojazd p, Klient k){
+//todo
+//        id_pojazdu = choices[0] ;
+        data_wypozyczenia = choices[1];
+        data_oddania=choices[2];
+        kod_dostepu = choices[3];
+//todo
+//        id_klienta = choices[4];
+//        cena=choices[5];
+        pracownik=choices[6];
+
+    }
 }
