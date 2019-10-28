@@ -1,5 +1,6 @@
 package layout;
 
+import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.input.KeyStroke;
 
 import java.io.IOException;
@@ -41,7 +42,7 @@ public class UserInput {
 
     public static String[] getUserInput(int inputsNumber) throws IOException {
         String[] strings = new String[inputsNumber];
-        int currentIndex = 0, i = 1;
+        int currentIndex = 0, i = 1, marginFromText = 4;
         STerminal sTerminal = STerminal.getInstance();
         KeyStroke keyPressed;
         StringBuilder sb = new StringBuilder();
@@ -52,7 +53,8 @@ public class UserInput {
                 switch (keyPressed.getKeyType()) {
                     case Character:
                         sb.append(keyPressed.getCharacter());
-                        sTerminal.getTextGraphics().putString(sTerminal.getWorkspacePosition().getColumn()+20, sTerminal.getWorkspacePosition().getRow()+i, sb.toString());
+                        //sTerminal.getTextGraphics().putString(sTerminal.getWorkspacePosition().getColumn()+20, sTerminal.getWorkspacePosition().getRow()+i, sb.toString());
+                        sTerminal.getTextGraphics().putString(sTerminal.getWorkspacePosition().getColumn() + Printer.getOptionsTexts()[i-1].length() + marginFromText, sTerminal.getWorkspacePosition().getRow()+i, sb.toString(), SGR.BOLD);
                         sTerminal.getScreen().refresh();
                         System.out.println(keyPressed.getCharacter());
                         break;
@@ -69,8 +71,8 @@ public class UserInput {
                         break;
                     case Backspace:
                         if(sb.length()>0) sb.deleteCharAt(sb.length()-1);
-                        sTerminal.getTextGraphics().putString(sTerminal.getWorkspacePosition().getColumn()+20, sTerminal.getWorkspacePosition().getRow()+i, "                  ");
-                        sTerminal.getTextGraphics().putString(sTerminal.getWorkspacePosition().getColumn()+20, sTerminal.getWorkspacePosition().getRow()+i, sb.toString());
+                        sTerminal.getTextGraphics().putString(sTerminal.getWorkspacePosition().getColumn() + Printer.getOptionsTexts()[i-1].length() + marginFromText, sTerminal.getWorkspacePosition().getRow()+i, "                ");
+                        sTerminal.getTextGraphics().putString(sTerminal.getWorkspacePosition().getColumn() + Printer.getOptionsTexts()[i-1].length() + marginFromText, sTerminal.getWorkspacePosition().getRow()+i, sb.toString(), SGR.BOLD);
                         sTerminal.getScreen().refresh();
                         break;
                 }

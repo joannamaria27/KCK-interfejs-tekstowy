@@ -1,3 +1,4 @@
+import layout.DBConnector;
 import layout.Printer;
 import layout.STerminal;
 import layout.UserInput;
@@ -12,7 +13,6 @@ public class Main {
         sTerminal.printHeader(sTerminal.getHeaderPosition());
         sTerminal.getScreen().refresh();
         while(Printer.printMainMenu()!=-1) { }
-
 
         sTerminal.getScreen().stopScreen();
 

@@ -21,12 +21,12 @@ public class Printer {
 
         int options = 3;
         optionsTexts = new String[menuOptions];
-        final String OPTION_1 = "1. Samochód";
-        final String OPTION_2 = "2. Skuter";
-        final String OPTION_3 = "3. Rower";
-        optionsTexts[0] = OPTION_1;
-        optionsTexts[1] = OPTION_2;
-        optionsTexts[2] = OPTION_3;
+//        final String OPTION_1 = "1. Samochód";
+//        final String OPTION_2 = "2. Skuter";
+//        final String OPTION_3 = "3. Rower";
+        optionsTexts[0] = "1. Samochód";
+        optionsTexts[1] = "2. Skuter";
+        optionsTexts[2] = "3. Rower";
 
         STerminal sTerminal = STerminal.getInstance();
 
@@ -35,9 +35,9 @@ public class Printer {
         int margin = sTerminal.getMargin();
 
         sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow, "Wybierz pojazd", SGR.BOLD);
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 1, "1. Samochód", SGR.REVERSE);
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 2, "2. Skuter");
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 3, "3. Rower");
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 1, optionsTexts[0], SGR.REVERSE);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 2, optionsTexts[1]);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 3, optionsTexts[2]);
         sTerminal.getScreen().refresh();
 
         int choice = UserInput.chooseOption(Printer.getMenuOptions());
@@ -134,7 +134,7 @@ public class Printer {
         sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 6, OPTION_6);
         sTerminal.getScreen().refresh();
 
-        String[] choices = UserInput.getUserInput(6);
+        String[] choices = UserInput.getUserInput(options);
         DBConnector dbConnector = DBConnector.getInstance();
         Pojazd pojazd = new Pojazd(choices, "Samochód");
         dbConnector.addPojazd(pojazd);
@@ -232,7 +232,7 @@ public class Printer {
         sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 6, OPTION_6);
         sTerminal.getScreen().refresh();
 
-        String[] choices = UserInput.getUserInput(6);
+        String[] choices = UserInput.getUserInput(options);
         DBConnector dbConnector = DBConnector.getInstance();
         Pojazd pojazd = new Pojazd(choices, "Rower");
         dbConnector.addPojazd(pojazd);
@@ -317,7 +317,7 @@ public class Printer {
         sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 6, OPTION_6);
         sTerminal.getScreen().refresh();
 
-        String[] choices = UserInput.getUserInput(6);
+        String[] choices = UserInput.getUserInput(options);
         DBConnector dbConnector = DBConnector.getInstance();
         Pojazd pojazd = new Pojazd(choices, "Skuter");
         dbConnector.addPojazd(pojazd);
@@ -368,7 +368,7 @@ public class Printer {
 //todo
 // dodanie klienta i pojazdu
 
-        String[] choices = UserInput.getUserInput(7);
+        String[] choices = UserInput.getUserInput(options);
         DBConnector dbConnector = DBConnector.getInstance();
         Wypozyczenie wypozyczenie = new Wypozyczenie(choices);
         dbConnector.addWypozyczenie(wypozyczenie);
@@ -414,7 +414,7 @@ public class Printer {
         sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 7, OPTION_7);
         sTerminal.getScreen().refresh();
 
-        String[] choices = UserInput.getUserInput(7);
+        String[] choices = UserInput.getUserInput(options);
         DBConnector dbConnector = DBConnector.getInstance();
         Wypozyczenie wypozyczenie = new Wypozyczenie(choices);
         dbConnector.addWypozyczenie(wypozyczenie);
@@ -460,7 +460,7 @@ public class Printer {
         sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 7, OPTION_7);
         sTerminal.getScreen().refresh();
 
-        String[] choices = UserInput.getUserInput(7);
+        String[] choices = UserInput.getUserInput(options);
         DBConnector dbConnector = DBConnector.getInstance();
         Wypozyczenie wypozyczenie = new Wypozyczenie(choices);
         dbConnector.addWypozyczenie(wypozyczenie);
@@ -474,12 +474,12 @@ public class Printer {
         int options = 7, localMargin = 10;
         optionsTexts = new String[options];
         final String OPTION_1 = "1. NUMER PRAWA JAZDY: ";
-        final String OPTION_2 = "1. NAZWISKO: ";
-        final String OPTION_3 = "2. IMIE: ";
-        final String OPTION_4 = "3. DATA URODZENIA: ";
-        final String OPTION_5 = "4. ADRES: ";
-        final String OPTION_6 = "5. PESEL: ";
-        final String OPTION_7 = "6. TELEFON";
+        final String OPTION_2 = "2. NAZWISKO: ";
+        final String OPTION_3 = "3. IMIE: ";
+        final String OPTION_4 = "4. DATA URODZENIA: ";
+        final String OPTION_5 = "5. ADRES: ";
+        final String OPTION_6 = "6. PESEL: ";
+        final String OPTION_7 = "7. TELEFON";
         optionsTexts[0] = OPTION_1;
         optionsTexts[1] = OPTION_2;
         optionsTexts[2] = OPTION_3;
@@ -507,7 +507,7 @@ public class Printer {
         sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 7, OPTION_7);
         sTerminal.getScreen().refresh();
 
-        String[] choices = UserInput.getUserInput(7);
+        String[] choices = UserInput.getUserInput(options);
         DBConnector dbConnector = DBConnector.getInstance();
         Klient klient = new Klient(choices);
         dbConnector.addKlient(klient);

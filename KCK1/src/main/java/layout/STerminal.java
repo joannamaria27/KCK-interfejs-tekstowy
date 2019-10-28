@@ -10,6 +10,7 @@ import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 
 import java.io.IOException;
+import java.util.LinkedList;
 
 public class STerminal {
 
@@ -23,6 +24,7 @@ public class STerminal {
     private TerminalPosition workspacePosition = new TerminalPosition(0, headerSize.getRows()+1);
     private TerminalPosition menuPosition = new TerminalPosition(0, headerSize.getRows()+1);
     private TerminalPosition inputPosition = new TerminalPosition(25, headerSize.getRows()+2);
+    private TerminalPosition pathPosition = new TerminalPosition(1, headerSize.getRows()+1);
 
     private TextColor headerFrontColor = new TextColor.RGB(255, 119, 74);
     private TextColor headerBackColor = new TextColor.RGB(21, 15, 64);
@@ -45,67 +47,51 @@ public class STerminal {
     public int getRows() {
         return rows;
     }
-
     public int getColumns() {
         return columns;
     }
-
     public int getMargin() {
         return margin;
     }
-
     public TerminalSize getHeaderSize() {
         return headerSize;
     }
-
     public TerminalSize getWorkspaceSize() {
         return workspaceSize;
     }
-
     public TerminalSize getTerminalSize() {
         return terminalSize;
     }
-
     public TerminalPosition getHeaderPosition() {
         return headerPosition;
     }
-
     public TerminalPosition getWorkspacePosition() {
         return workspacePosition;
     }
-
     public TextColor getHeaderFrontColor() {
         return headerFrontColor;
     }
-
     public TextColor getHeaderBackColor() {
         return headerBackColor;
     }
-
     public TextColor getWorkspaceFrontColor() {
         return workspaceFrontColor;
     }
-
     public TextColor getWorkspaceBackColor() {
         return workspaceBackColor;
     }
-
     public Terminal getTerminal() {
         return terminal;
     }
-
     public Screen getScreen() {
         return screen;
     }
-
     public TextGraphics getTextGraphics() {
         return textGraphics;
     }
-
     public TerminalPosition getMenuPosition() {
         return menuPosition;
     }
-
     public TerminalPosition getInputPosition() {
         return inputPosition;
     }
