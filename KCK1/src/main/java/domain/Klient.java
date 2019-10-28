@@ -31,5 +31,14 @@ public class Klient {
 
     }
 
+    public Klient(String[] choices){
+        nr_prawa_jazdy=choices[0];
+        nazwisko=choices[1];
+        imie=choices[2];
+        data_urodzenia=choices[3];
+        adres=choices[4];
+        pesel=choices[5];
+        telefon=choices[6];
+    }
 
 }
