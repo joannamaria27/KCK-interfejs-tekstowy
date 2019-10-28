@@ -133,7 +133,7 @@ public class Printer {
 
         String[] choices = UserInput.getUserInput(6);
         DBConnector dbConnector = DBConnector.getInstance();
-        Pojazd pojazd = new Pojazd(choices);
+        Pojazd pojazd = new Pojazd(choices, "Samochód");
         dbConnector.addPojazd(pojazd);
 
         return 0;
@@ -231,7 +231,7 @@ public class Printer {
 
         String[] choices = UserInput.getUserInput(6);
         DBConnector dbConnector = DBConnector.getInstance();
-        Pojazd pojazd = new Pojazd(choices);
+        Pojazd pojazd = new Pojazd(choices, "Rower");
         dbConnector.addPojazd(pojazd);
 
         return 0;
@@ -316,7 +316,7 @@ public class Printer {
 
         String[] choices = UserInput.getUserInput(6);
         DBConnector dbConnector = DBConnector.getInstance();
-        Pojazd pojazd = new Pojazd(choices);
+        Pojazd pojazd = new Pojazd(choices, "Skuter");
         dbConnector.addPojazd(pojazd);
 
         return 0;

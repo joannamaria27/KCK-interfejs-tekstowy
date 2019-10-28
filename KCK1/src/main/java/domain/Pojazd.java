@@ -16,6 +16,7 @@ import javax.persistence.Id;
     private String dostepnosc;
 
 
+
     public Pojazd(String typ_, String marka_, String model_, String id_ubezpieczenia_, String stan_pojazdu_, String dostepnosc_){
 
         typ=typ_;
@@ -26,14 +27,14 @@ import javax.persistence.Id;
         dostepnosc = dostepnosc_;
     }
 
-    public Pojazd(String[] choices){
+    public Pojazd(String[] choices, String type){
         typ=choices[0];
         marka = choices[1];
         model = choices[2];
         id_ubezpieczenia=choices[3];
         stan_pojazdu = choices[4];
         dostepnosc = choices[5];
-
+        typ = type;
     }
 
 
