@@ -20,6 +20,12 @@ public class DBConnector {
 
     private static DBConnector instance;
 
+    public void start(){
+        //entityManagerFactory = Persistence.createEntityManagerFactory("wypozyczalnia");
+        //entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+    }
+
     private DBConnector() {
         entityManagerFactory = Persistence.createEntityManagerFactory("wypozyczalnia");
         entityManager = entityManagerFactory.createEntityManager();
@@ -37,9 +43,9 @@ public class DBConnector {
     }
 
     public void addWypozyczenie(Wypozyczenie w) {
-        entityManager.getTransaction().begin();
+        //entityManager.getTransaction().begin();
         entityManager.persist(w);
-        entityManager.getTransaction().commit();
+        //entityManager.getTransaction().commit();
     }
 
     public void addWypozyczenie() {
@@ -60,9 +66,9 @@ public class DBConnector {
     }
 
     public void addPojazd(Pojazd p) {
-        entityManager.getTransaction().begin();
+        //entityManager.getTransaction().begin();
         entityManager.persist(p);
-        entityManager.getTransaction().commit();
+        //entityManager.getTransaction().commit();
     }
 
     public void deletePojazd(Pojazd p) {
@@ -71,9 +77,7 @@ public class DBConnector {
         entityManager.getTransaction().commit();
     }
     public void deleteKlient(Klient k) {
-        entityManager.getTransaction().begin();
         entityManager.remove(k);
-        entityManager.getTransaction().commit();
     }
     public void deleteWypozyczenie(Wypozyczenie w) {
         entityManager.getTransaction().begin();
@@ -81,7 +85,7 @@ public class DBConnector {
         entityManager.getTransaction().commit();
     }
 
-// nie wiem czy działa
+    // nie wiem czy działa
     public void editPojazd(Pojazd p)
     {
         entityManager.getTransaction().begin();
@@ -102,9 +106,12 @@ public class DBConnector {
     }
 
     public void stop() {
+        entityManager.getTransaction().commit();
+    }
+
+    public void stopdb(){
         entityManager.close();
         entityManagerFactory.close();
     }
-
 
 }

@@ -14,7 +14,7 @@ import java.util.LinkedList;
 
 public class STerminal {
 
-    private int rows = 35, columns = 90, margin = 3;
+    private int rows = 35, columns = 78, margin = 3;
 
     private TerminalSize headerSize = new TerminalSize(columns, (int)rows/5);
     private TerminalSize workspaceSize = new TerminalSize(columns, 4*(int)rows/5 + (int)rows/5);
@@ -25,6 +25,7 @@ public class STerminal {
     private TerminalPosition menuPosition = new TerminalPosition(0, headerSize.getRows()+1);
     private TerminalPosition inputPosition = new TerminalPosition(25, headerSize.getRows()+2);
     private TerminalPosition pathPosition = new TerminalPosition(1, headerSize.getRows()+1);
+    private TerminalPosition errorPosition = new TerminalPosition(1, 75);
 
     private TextColor headerFrontColor = new TextColor.RGB(255, 119, 74);
     private TextColor headerBackColor = new TextColor.RGB(21, 15, 64);
@@ -52,6 +53,12 @@ public class STerminal {
     }
     public int getMargin() {
         return margin;
+    }
+    public TerminalPosition getPathPosition() {
+        return pathPosition;
+    }
+    public TerminalPosition getErrorPosition() {
+        return errorPosition;
     }
     public TerminalSize getHeaderSize() {
         return headerSize;

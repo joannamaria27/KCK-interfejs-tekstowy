@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class Printer {
 
-    private static int menuOptions = 3;
+    private static int menuOptions = 4;
     private static int carMenuOptions = 5;
     private static int bicycleMenuOptions = 5;
     private static int scooterMenuOptions = 5;
@@ -19,14 +19,16 @@ public class Printer {
 
     public static int printMainMenu() throws IOException {
 
-        int options = 3;
-        optionsTexts = new String[menuOptions];
+        int options = 4;
+        optionsTexts = new String[options];
 //        final String OPTION_1 = "1. Samochód";
 //        final String OPTION_2 = "2. Skuter";
 //        final String OPTION_3 = "3. Rower";
         optionsTexts[0] = "1. Samochód";
         optionsTexts[1] = "2. Skuter";
         optionsTexts[2] = "3. Rower";
+        optionsTexts[3] = "4. Klient";
+
 
         STerminal sTerminal = STerminal.getInstance();
 
@@ -38,6 +40,7 @@ public class Printer {
         sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 1, optionsTexts[0], SGR.REVERSE);
         sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 2, optionsTexts[1]);
         sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 3, optionsTexts[2]);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 4, optionsTexts[3]);
         sTerminal.getScreen().refresh();
 
         int choice = UserInput.chooseOption(Printer.getMenuOptions());
@@ -45,6 +48,32 @@ public class Printer {
         else if (choice == 1) printCarMenu();
         else if (choice == 2) printScooterMenu();
         else if (choice == 3) printBicycleMenu();
+        else if (choice == 4) printClientMenu();
+
+
+        return 0;
+    }
+
+    public static int printClientMenu() throws IOException {
+        int options = 2;
+        optionsTexts = new String[options];
+        optionsTexts[0] = "1. Dodaj";
+        optionsTexts[1] = "2. Usuń";
+
+        STerminal sTerminal = STerminal.getInstance();
+        int workspaceColumn = sTerminal.getWorkspacePosition().getColumn();
+        int workspaceRow = sTerminal.getWorkspacePosition().getRow();
+        int margin = sTerminal.getMargin();
+
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow, "Wybierz akcję dotyczącą klienta", SGR.BOLD);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 1, optionsTexts[0], SGR.REVERSE);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 2, optionsTexts[1]);
+        sTerminal.getScreen().refresh();
+
+        int choice = UserInput.chooseOption(options);
+        if (choice == -1) return -1;
+        else if (choice == 1) printAddClientMenu();
+        else if (choice == 2) printDeleteClientMenu();
 
 
         return 0;
@@ -137,7 +166,9 @@ public class Printer {
         String[] choices = UserInput.getUserInput(options);
         DBConnector dbConnector = DBConnector.getInstance();
         Pojazd pojazd = new Pojazd(choices, "Samochód");
+        dbConnector.start();
         dbConnector.addPojazd(pojazd);
+        dbConnector.stop();
 
         return 0;
     }
@@ -417,7 +448,28 @@ public class Printer {
         String[] choices = UserInput.getUserInput(options);
         DBConnector dbConnector = DBConnector.getInstance();
         Wypozyczenie wypozyczenie = new Wypozyczenie(choices);
+
+        dbConnector.start();
+        Pojazd pojazd = (Pojazd)dbConnector.entityManager.find(Pojazd.class, Long.parseLong(choices[0]));
+        if(pojazd == null){
+            sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie ma pojazdu o tym id");
+            sTerminal.getScreen().refresh();
+            System.out.println("Nie ma pojazu o tym id");
+            dbConnector.stop();
+            return -1;
+        }
+        Klient klient = dbConnector.entityManager.find(Klient.class, Long.parseLong(choices[4]));
+        if(klient == null){
+            sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie ma klienta o tym id");
+            sTerminal.getScreen().refresh();
+            System.out.println("Nie ma klienta o tym id");
+            dbConnector.stop();
+            return -1;
+        }
+        wypozyczenie.setId_pojazdu(pojazd);
+        wypozyczenie.setId_klienta(klient);
         dbConnector.addWypozyczenie(wypozyczenie);
+        dbConnector.stop();
 
         return 0;
 
@@ -463,7 +515,10 @@ public class Printer {
         String[] choices = UserInput.getUserInput(options);
         DBConnector dbConnector = DBConnector.getInstance();
         Wypozyczenie wypozyczenie = new Wypozyczenie(choices);
+        dbConnector.start();
         dbConnector.addWypozyczenie(wypozyczenie);
+        dbConnector.addPojazd(wypozyczenie.getId_pojazdu());
+        dbConnector.stop();
 
         return 0;
 
@@ -511,6 +566,36 @@ public class Printer {
         DBConnector dbConnector = DBConnector.getInstance();
         Klient klient = new Klient(choices);
         dbConnector.addKlient(klient);
+
+        return 0;
+    }
+
+    public static int printDeleteClientMenu() throws IOException {
+        int options = 1, localMargin = 10;
+        optionsTexts = new String[options];
+        final String OPTION_1 = "ID klienta: ";
+
+        optionsTexts[0] = OPTION_1;
+
+        STerminal sTerminal = STerminal.getInstance();
+
+        int workspaceColumn = sTerminal.getMenuPosition().getColumn();
+        int workspaceRow = sTerminal.getMenuPosition().getRow();
+        int margin = sTerminal.getMargin();
+
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow, "Podaj ID klienta, którego chcesz usunąć", SGR.BOLD);
+        //todo
+        //typ automatycznie dodawany
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 1, OPTION_1);
+        sTerminal.getScreen().refresh();
+
+        String[] choices = UserInput.getUserInput(options);
+        DBConnector dbConnector = DBConnector.getInstance();
+        dbConnector.start();
+        Klient klient = dbConnector.entityManager.find(Klient.class, Long.parseLong(choices[0]));
+        dbConnector.deleteKlient(klient);
+        dbConnector.stop();
+
 
         return 0;
     }
