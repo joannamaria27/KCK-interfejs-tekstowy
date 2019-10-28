@@ -14,13 +14,13 @@ public class DBConnector {
     EntityManager entityManager;
 
     public static DBConnector getInstance() {
-        if(instance == null) instance = new DBConnector();
+        if (instance == null) instance = new DBConnector();
         return instance;
     }
 
     private static DBConnector instance;
 
-    private DBConnector(){
+    private DBConnector() {
         entityManagerFactory = Persistence.createEntityManagerFactory("wypozyczalnia");
         entityManager = entityManagerFactory.createEntityManager();
 
@@ -36,13 +36,13 @@ public class DBConnector {
 
     }
 
-    public void addWypozyczenie(Wypozyczenie w){
+    public void addWypozyczenie(Wypozyczenie w) {
         entityManager.getTransaction().begin();
         entityManager.persist(w);
         entityManager.getTransaction().commit();
     }
 
-    public void addWypozyczenie(){
+    public void addWypozyczenie() {
         entityManager.getTransaction().begin();
 
         // todo
@@ -53,20 +53,55 @@ public class DBConnector {
     }
 
 
-
-    public void addKlient(Klient k){
+    public void addKlient(Klient k) {
         entityManager.getTransaction().begin();
         entityManager.persist(k);
         entityManager.getTransaction().commit();
     }
 
-    public void addPojazd(Pojazd p){
+    public void addPojazd(Pojazd p) {
         entityManager.getTransaction().begin();
         entityManager.persist(p);
         entityManager.getTransaction().commit();
     }
 
-    public void stop(){
+    public void deletePojazd(Pojazd p) {
+        entityManager.getTransaction().begin();
+        entityManager.remove(p);
+        entityManager.getTransaction().commit();
+    }
+    public void deleteKlient(Klient k) {
+        entityManager.getTransaction().begin();
+        entityManager.remove(k);
+        entityManager.getTransaction().commit();
+    }
+    public void deleteWypozyczenie(Wypozyczenie w) {
+        entityManager.getTransaction().begin();
+        entityManager.remove(w);
+        entityManager.getTransaction().commit();
+    }
+
+// nie wiem czy działa
+    public void editPojazd(Pojazd p)
+    {
+        entityManager.getTransaction().begin();
+        entityManager.merge(p);
+        entityManager.getTransaction().commit();
+    }
+    public void editKlient(Klient k)
+    {
+        entityManager.getTransaction().begin();
+        entityManager.merge(k);
+        entityManager.getTransaction().commit();
+    }
+    public void editWypozyczenie(Wypozyczenie w)
+    {
+        entityManager.getTransaction().begin();
+        entityManager.merge(w);
+        entityManager.getTransaction().commit();
+    }
+
+    public void stop() {
         entityManager.close();
         entityManagerFactory.close();
     }
