@@ -17,7 +17,7 @@ public class Printer {
     private static int scooterMenuOptions = 5;
     private static String[] optionsTexts;
 
-    public static int printMainMenu() throws IOException {
+    public static int printMainMenu() throws IOException, InterruptedException {
 
         int options = 4;
         optionsTexts = new String[options];
@@ -54,7 +54,7 @@ public class Printer {
         return 0;
     }
 
-    public static int printClientMenu() throws IOException {
+    public static int printClientMenu() throws IOException, InterruptedException {
         int options = 2;
         optionsTexts = new String[options];
         optionsTexts[0] = "1. Dodaj";
@@ -92,7 +92,7 @@ public class Printer {
         sTerminal.getScreen().refresh();
     }
 
-    public static int printCarMenu() throws IOException {
+    public static int printCarMenu() throws IOException, InterruptedException {
         int options = 5;
         optionsTexts = new String[options];
         final String OPTION_1 = "1. Dodaj";
@@ -123,7 +123,7 @@ public class Printer {
         int choice = UserInput.chooseOption(Printer.getCarMenuOptions());
         if (choice == -1) return -1;
         else if (choice == 1) printCarInputMenu();
-//        else if(choice == 2) printCarDeleteMenu();
+        else if(choice == 2) printDeleteCarMenu();
 //        else if(choice == 3) printCarEditMenu();
         else if(choice == 4) printCarRentalMenu();
 //        else if(choice == 5) printCar();
@@ -135,7 +135,7 @@ public class Printer {
     public static int printCarInputMenu() throws IOException {
         int options = 6, localMargin = 10;
         optionsTexts = new String[options];
-        final String OPTION_1 = "1. TYP: SKUTER";
+        final String OPTION_1 = "1. TYP: ";
         final String OPTION_2 = "1. MODEL: ";
         final String OPTION_3 = "2. MARKA: ";
         final String OPTION_4 = "3. NR_UBEZPIECZENIA:: ";
@@ -191,7 +191,7 @@ public class Printer {
         return optionsTexts;
     }
 
-    public static int printBicycleMenu() throws IOException {
+    public static int printBicycleMenu() throws IOException, InterruptedException {
         int options = 5;
         optionsTexts = new String[options];
         final String OPTION_1 = "1. Dodaj";
@@ -222,7 +222,7 @@ public class Printer {
         int choice = UserInput.chooseOption(Printer.getBicycleMenuOptions());
         if (choice == -1) return -1;
         else if (choice == 1) printBicycleInputMenu();
-//        else if(choice == 2) printBicycleDeleteMenu();
+        else if(choice == 2) printDeleteCarMenu();
 //        else if(choice == 3) printBicycleEditMenu();
         else if(choice == 4) printBicycleRentalMenu();
 //        else if(choice == 5) printBicycle();
@@ -235,7 +235,7 @@ public class Printer {
     public static int printBicycleInputMenu() throws IOException {
         int options = 6, localMargin = 10;
         optionsTexts = new String[options];
-        final String OPTION_1 = "1. TYP: ROWER";
+        final String OPTION_1 = "1. TYP: ";
         final String OPTION_2 = "1. MODEL: ";
         final String OPTION_3 = "2. MARKA: ";
         final String OPTION_4 = "3. NR_UBEZPIECZENIA:: ";
@@ -266,8 +266,9 @@ public class Printer {
         String[] choices = UserInput.getUserInput(options);
         DBConnector dbConnector = DBConnector.getInstance();
         Pojazd pojazd = new Pojazd(choices, "Rower");
+        dbConnector.start();
         dbConnector.addPojazd(pojazd);
-
+        dbConnector.stop();
         return 0;
     }
 
@@ -275,7 +276,7 @@ public class Printer {
         return bicycleMenuOptions;
     }
 
-    public static int printScooterMenu() throws IOException {
+    public static int printScooterMenu() throws IOException, InterruptedException {
         int options = 5;
         optionsTexts = new String[options];
         final String OPTION_1 = "1. Dodaj";
@@ -306,7 +307,7 @@ public class Printer {
         int choice = UserInput.chooseOption(Printer.getScooterMenuOptions());
         if (choice == -1) return -1;
         else if (choice == 1) printScooterInputMenu();
-//        else if(choice == 2) printScooterDeleteMenu();
+        else if(choice == 2) printDeleteCarMenu();
 //        else if(choice == 3) printScooterEditMenu();
         else if(choice == 4) printScooterRentalMenu();
 //        else if(choice == 5) printScooter();
@@ -318,7 +319,7 @@ public class Printer {
     public static int printScooterInputMenu() throws IOException {
         int options = 6, localMargin = 10;
         optionsTexts = new String[options];
-        final String OPTION_1 = "1. TYP: SKUTER";
+        final String OPTION_1 = "1. TYP: ";
         final String OPTION_2 = "1. MODEL: ";
         final String OPTION_3 = "2. MARKA: ";
         final String OPTION_4 = "3. NR_UBEZPIECZENIA:: ";
@@ -338,8 +339,6 @@ public class Printer {
         int margin = sTerminal.getMargin();
 
         sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow, "Podaj dane", SGR.BOLD);
-//todo
-// dodanie klienta i pojazdu
         sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 1, OPTION_1);
         sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 2, OPTION_2);
         sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 3, OPTION_3);
@@ -351,8 +350,9 @@ public class Printer {
         String[] choices = UserInput.getUserInput(options);
         DBConnector dbConnector = DBConnector.getInstance();
         Pojazd pojazd = new Pojazd(choices, "Skuter");
+        dbConnector.start();
         dbConnector.addPojazd(pojazd);
-
+        dbConnector.stop();
         return 0;
     }
 
@@ -365,13 +365,13 @@ public class Printer {
 
         int options = 7, localMargin = 10;
         optionsTexts = new String[options];
-        final String OPTION_1 = "1. POJAZD: SKUTER";
+        final String OPTION_1 = "1. POJAZD:";
         final String OPTION_2 = "1. DATA WYPOZYCZENIA: ";
         final String OPTION_3 = "2. DATA ODDANIA: ";
         final String OPTION_4 = "3. KOD DOSTEPU: ";
         final String OPTION_5 = "4. KLIENT: ";
         final String OPTION_6 = "5. CENA: ";
-        final String OPTION_7 = "6. PRACWNIK";
+        final String OPTION_7 = "6. PRACOWNIK";
         optionsTexts[0] = OPTION_1;
         optionsTexts[1] = OPTION_2;
         optionsTexts[2] = OPTION_3;
@@ -417,7 +417,7 @@ public class Printer {
         final String OPTION_4 = "3. KOD DOSTEPU: ";
         final String OPTION_5 = "4. KLIENT: ";
         final String OPTION_6 = "5. CENA: ";
-        final String OPTION_7 = "6. PRACWNIK";
+        final String OPTION_7 = "6. PRACOWNIK";
         optionsTexts[0] = OPTION_1;
         optionsTexts[1] = OPTION_2;
         optionsTexts[2] = OPTION_3;
@@ -479,7 +479,7 @@ public class Printer {
 
         int options = 7, localMargin = 10;
         optionsTexts = new String[options];
-        final String OPTION_1 = "1. POJAZD: ROWER";
+        final String OPTION_1 = "1. POJAZD: ";
         final String OPTION_2 = "1. DATA WYPOZYCZENIA: ";
         final String OPTION_3 = "2. DATA ODDANIA: ";
         final String OPTION_4 = "3. KOD DOSTEPU: ";
@@ -593,14 +593,49 @@ public class Printer {
         DBConnector dbConnector = DBConnector.getInstance();
         dbConnector.start();
         Klient klient = dbConnector.entityManager.find(Klient.class, Long.parseLong(choices[0]));
-        dbConnector.deleteKlient(klient);
+        if (klient == null) {
+            sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie ma klienta o tym id");
+            dbConnector.stop();
+            return -1;
+        }
+        else dbConnector.deleteKlient(klient);
         dbConnector.stop();
-
 
         return 0;
     }
 
+    public static int printDeleteCarMenu() throws IOException { ///Pojazdy wszystkie
+        int options = 1, localMargin = 10;
+        optionsTexts = new String[options];
+        final String OPTION_1 = "ID pojazdu: ";
 
+        optionsTexts[0] = OPTION_1;
+
+        STerminal sTerminal = STerminal.getInstance();
+
+        int workspaceColumn = sTerminal.getMenuPosition().getColumn();
+        int workspaceRow = sTerminal.getMenuPosition().getRow();
+        int margin = sTerminal.getMargin();
+
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow, "Podaj ID pojazdu, którego chcesz usunąć", SGR.BOLD);
+
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 1, OPTION_1);
+        sTerminal.getScreen().refresh();
+
+        String[] choices = UserInput.getUserInput(options);
+        DBConnector dbConnector = DBConnector.getInstance();
+        dbConnector.start();
+        Pojazd pojazd = dbConnector.entityManager.find(Pojazd.class, Long.parseLong(choices[0]));
+        if (pojazd == null) {
+            sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie ma pojazdu o tym id");
+            dbConnector.stop();
+            return -1;
+        }
+        else dbConnector.deletePojazd(pojazd);
+        dbConnector.stop();
+
+        return 0;
+    }
 
 
 }
