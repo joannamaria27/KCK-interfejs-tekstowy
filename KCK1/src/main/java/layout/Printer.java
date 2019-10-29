@@ -256,7 +256,7 @@ public class Printer {
         sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 1, optionsTexts[0], SGR.REVERSE);
         sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 2, optionsTexts[1]);
         sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 3, optionsTexts[2]);
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 3, optionsTexts[3]);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 4, optionsTexts[3]);
         sTerminal.getScreen().refresh();
 
         int choice = UserInput.chooseOption(options);
@@ -430,9 +430,16 @@ public class Printer {
         DBConnector dbConnector = DBConnector.getInstance();
         dbConnector.start();
         Klient klient = dbConnector.entityManager.find(Klient.class, Long.parseLong(choices[0]));
+        List<Wypozyczenie> list = DBConnector.getInstance().entityManager.createQuery("SELECT a FROM Wypozyczenie a WHERE id_klienta_id='" + choices[0] + "'", Wypozyczenie.class).getResultList();
+
         if (klient == null) {
             Printer.clearErrorPosition();
             sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie ma klienta o tym id");
+            dbConnector.stop();
+            return -1;
+        } else if(list.size()>0){
+            Printer.clearErrorPosition();
+            printError("Klient posiada aktualnie wypożyczenie");
             dbConnector.stop();
             return -1;
         } else dbConnector.deleteKlient(klient);
@@ -1132,7 +1139,7 @@ public class Printer {
         STerminal sTerminal = STerminal.getInstance();
 
         Printer.clearErrorPosition();
-        sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), " " + error);
+        sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow()+1, " " + error);
     }
 
 
