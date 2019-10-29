@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class UserInput {
 
-    public static int chooseOption(int possibleOptions) throws IOException {
+    public static int chooseOption(int possibleOptions) throws IOException, InterruptedException {
         int currentOption = 1;
         STerminal sTerminal = STerminal.getInstance();
         boolean keepRunning = true;
@@ -33,6 +33,7 @@ public class UserInput {
                         return currentOption;
                     case Escape:
                         Printer.clearWorkingArea();
+                        sTerminal.auto(sTerminal.getHeaderPosition());
                         return -1;
                 }
             }
