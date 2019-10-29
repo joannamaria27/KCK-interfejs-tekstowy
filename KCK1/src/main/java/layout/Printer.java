@@ -1,6 +1,7 @@
 package layout;
 
 import com.googlecode.lanterna.SGR;
+import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.input.KeyStroke;
 import domain.Klient;
 import domain.Pojazd;
@@ -227,7 +228,8 @@ public class Printer {
         Wypozyczenie wypozyczenie = dbConnector.entityManager.find(Wypozyczenie.class, Long.parseLong(choices[0]));
         if (wypozyczenie == null) {
             Printer.clearErrorPosition();
-            sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie ma wypożyczenia o tym id");
+//            sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie ma wypożyczenia o tym id");
+            Printer.printError("Nie ma wypożyczenia o tym id");
             dbConnector.stop();
             return -1;
         } else {
@@ -434,7 +436,8 @@ public class Printer {
 
         if (klient == null) {
             Printer.clearErrorPosition();
-            sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie ma klienta o tym id");
+//            sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie ma klienta o tym id");
+            Printer.printError("Nie ma klienta o tym id");
             dbConnector.stop();
             return -1;
         } else if(list.size()>0){
@@ -1008,7 +1011,8 @@ public class Printer {
         Pojazd pojazd = (Pojazd) dbConnector.entityManager.find(Pojazd.class, Long.parseLong(choices[0]));
         if (pojazd == null) {
             Printer.clearErrorPosition();
-            sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie ma pojazdu o tym id");
+//            sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie ma pojazdu o tym id");
+            Printer.printError("Nie ma pojazdu o tym id");
             sTerminal.getScreen().refresh();
             System.out.println("Nie ma pojazu o tym id");
             //Thread.sleep(2000);
@@ -1018,7 +1022,8 @@ public class Printer {
         Klient klient = dbConnector.entityManager.find(Klient.class, Long.parseLong(choices[4]));
         if (klient == null) {
             Printer.clearErrorPosition();
-            sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie ma klienta o tym id");
+//            sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie ma klienta o tym id");
+            Printer.printError("Nie ma klienta o tym id");
             sTerminal.getScreen().refresh();
             System.out.println("Nie ma klienta o tym id");
             dbConnector.stop();
@@ -1089,7 +1094,10 @@ public class Printer {
     }
 
     public static void printFooter() throws IOException {
+        STerminal.getInstance().getTextGraphics().setBackgroundColor(TextColor.ANSI.DEFAULT);
         STerminal.getInstance().getTextGraphics().putString(STerminal.getInstance().getFooterPosition().getColumn() + 17, STerminal.getInstance().getFooterPosition().getRow(), "All Rights Reserved © Klimek & Gawędzki");
+        STerminal.getInstance().getTextGraphics().setBackgroundColor(STerminal.getInstance().getWorkspaceBackColor());
+
     }
 
     public static int printAllVehicles(String vehicleType) throws IOException {
@@ -1140,6 +1148,7 @@ public class Printer {
 
         Printer.clearErrorPosition();
         sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow()+1, " " + error);
+
     }
 
 
