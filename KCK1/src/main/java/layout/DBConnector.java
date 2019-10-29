@@ -70,9 +70,9 @@ public class DBConnector {
 
 
     public void addKlient(Klient k) {
-        entityManager.getTransaction().begin();
+        //entityManager.getTransaction().begin();
         entityManager.persist(k);
-        entityManager.getTransaction().commit();
+        //entityManager.getTransaction().commit();
     }
 
     public void addPojazd(Pojazd p) {
@@ -121,11 +121,22 @@ public class DBConnector {
     }
 
     public static List<Pojazd> getAllCars() throws IOException {
-        return DBConnector.getInstance().entityManager.createQuery("SELECT a FROM Pojazd a", Pojazd.class).getResultList();
+        return DBConnector.getInstance().entityManager.createQuery("SELECT a FROM Pojazd a WHERE typ='Samochód'", Pojazd.class).getResultList();
     }
+
+    public static List<Pojazd> getAllScooters() throws IOException {
+        return DBConnector.getInstance().entityManager.createQuery("SELECT a FROM Pojazd a WHERE typ='Skuter'", Pojazd.class).getResultList();
+    }
+
+
 
     public static List<Wypozyczenie> getAllRental() throws IOException {
         return DBConnector.getInstance().entityManager.createQuery("SELECT a FROM Wypozyczenie a", Wypozyczenie.class).getResultList();
+    }
+
+
+    public static List<Pojazd> getAllBikes() throws IOException {
+        return DBConnector.getInstance().entityManager.createQuery("SELECT a FROM Pojazd a WHERE typ='Rower'", Pojazd.class).getResultList();
     }
 
 }

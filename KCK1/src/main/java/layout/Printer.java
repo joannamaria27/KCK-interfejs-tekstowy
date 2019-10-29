@@ -136,11 +136,18 @@ public class Printer {
         //sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow+list.size(), "Podaj ID pojazdu, który chcesz edytować: ", SGR.BOLD);
         sTerminal.getScreen().refresh();
         String[] choice = UserInput.getUserInput(1);
+        if(choice.length  == 0){
+            System.out.println("exit");
+            //sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie podano wszystkich informacji");
+            sTerminal.getScreen().refresh();
+            return -1;
+        }
         DBConnector.getInstance().start();
         Wypozyczenie wypozyczenie = DBConnector.getInstance().entityManager.find(Wypozyczenie.class, Long.parseLong(choice[0]));
         DBConnector.getInstance().stop();
         if(wypozyczenie == null){
-            sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie ma wypozyczenia o podanym ID");
+            //sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie ma wypozyczenia o podanym ID");
+            Printer.printError("Nie ma wypozyczenia o podanym ID");
             return -1;
         }
 
@@ -378,7 +385,8 @@ public class Printer {
 
         DBConnector.getInstance().stop();
         if(pojazd == null){
-            sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie ma pojazdu o podanym ID");
+            //sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie ma pojazdu o podanym ID");
+            Printer.printError("Nie ma pojazdu o podanym ID");
             return -1;
         }
 
@@ -443,13 +451,15 @@ public class Printer {
 
         if (pojazd == null) {
             Printer.clearErrorPosition();
-            sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie ma pojazdu o tym id");
+            //sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie ma pojazdu o tym id");
+            Printer.printError("Nie ma pojazdu o tym id");
             dbConnector.stop();
             return -1;
         }
         else if(list.size()>0){
             Printer.clearErrorPosition();
-            sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Pojazd jest w trakcie wypożyczenia");
+            //sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Pojazd jest w trakcie wypożyczenia");
+            printError("Pojazd jest w trakcie wypożyczenia");
             dbConnector.stop();
             return -1;
         }

@@ -28,7 +28,7 @@ public class STerminal {
     private TerminalPosition inputPosition = new TerminalPosition(25, headerSize.getRows()+2);
     private TerminalPosition pathPosition = new TerminalPosition(1, headerSize.getRows()+1);
     private TerminalPosition footerPosition = new TerminalPosition(1, 34);
-    private TerminalPosition errorPosition = new TerminalPosition(1, 32);
+    private TerminalPosition errorPosition = new TerminalPosition(0, 32);
 
     private TextColor headerFrontColor = new TextColor.RGB(255, 119, 74);
     private TextColor headerBackColor = new TextColor.RGB(21, 15, 64);

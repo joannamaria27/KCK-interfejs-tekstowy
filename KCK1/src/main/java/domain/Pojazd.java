@@ -63,6 +63,14 @@ import javax.persistence.Id;
         this.dostepnosc = dostepnosc;
     }
 
+    public void setParameters(String[] choices){
+        marka = choices[0];
+        model = choices[1];
+        id_ubezpieczenia=choices[2];
+        stan_pojazdu = choices[3];
+        dostepnosc = choices[4];
+    }
+
     @Id
     @GeneratedValue
     private long id;
