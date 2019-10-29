@@ -139,4 +139,8 @@ public class DBConnector {
         return DBConnector.getInstance().entityManager.createQuery("SELECT a FROM Pojazd a WHERE typ='Rower'", Pojazd.class).getResultList();
     }
 
+    public static List<Klient> getAllClients() throws IOException {
+        return DBConnector.getInstance().entityManager.createQuery("SELECT a FROM Klient a", Klient.class).getResultList();
+    }
+
 }
