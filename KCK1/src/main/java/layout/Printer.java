@@ -98,20 +98,21 @@ public class Printer {
         int workspaceRow = sTerminal.getMenuPosition().getRow();
         int margin = sTerminal.getMargin();
         Printer.clearWorkingArea();
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow+1, "Znalezione wypożyczenia", SGR.BOLD);
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow+3, "ID-IDpojazdu-IDklienta-Cena-DataWyp.-DataOdd.-Nazw.prac.-KodDost.", SGR.ITALIC);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 1, "Znalezione wypożyczenia", SGR.BOLD);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 3, "ID-IDpojazdu-IDklienta-Cena-DataWyp.-DataOdd.-Nazw.prac.-KodDost.", SGR.ITALIC);
 
-        if(list.size() == 0) sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 5, "Brak wypożyczeń");
+        if (list.size() == 0)
+            sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 5, "Brak wypożyczeń");
         for (int i = 0; i < list.size(); i++) {
-            sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + i+5, list.get(i).getId() + " - " + list.get(i).getId_pojazdu().getId()+" - "+list.get(i).getId_klienta().getId()+" - "+list.get(i).getCena()+" - "+list.get(i).getData_wypozyczenia()+" - "+list.get(i).getData_oddania()+" - "+list.get(i).getPracownik()+" - "+list.get(i).getKod_dostepu());
+            sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + i + 5, list.get(i).getId() + " - " + list.get(i).getId_pojazdu().getId() + " - " + list.get(i).getId_klienta().getId() + " - " + list.get(i).getCena() + " - " + list.get(i).getData_wypozyczenia() + " - " + list.get(i).getData_oddania() + " - " + list.get(i).getPracownik() + " - " + list.get(i).getKod_dostepu());
         }
         sTerminal.getScreen().refresh();
 
         KeyStroke keyPressed;
-        while(true){
+        while (true) {
             keyPressed = sTerminal.getTerminal().pollInput();
             if (keyPressed != null) {
-                switch(keyPressed.getKeyType()){
+                switch (keyPressed.getKeyType()) {
                     case Enter:
                     case Escape:
                         return 0;
@@ -119,6 +120,7 @@ public class Printer {
             }
         }
     }
+
 
     public static int printRentalEditMenu() throws IOException {
         Printer.clearWorkingArea();
@@ -136,7 +138,7 @@ public class Printer {
         //sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow+list.size(), "Podaj ID pojazdu, który chcesz edytować: ", SGR.BOLD);
         sTerminal.getScreen().refresh();
         String[] choice = UserInput.getUserInput(1);
-        if(choice.length  == 0){
+        if (choice.length == 0) {
             System.out.println("exit");
             //sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie podano wszystkich informacji");
             sTerminal.getScreen().refresh();
@@ -145,7 +147,7 @@ public class Printer {
         DBConnector.getInstance().start();
         Wypozyczenie wypozyczenie = DBConnector.getInstance().entityManager.find(Wypozyczenie.class, Long.parseLong(choice[0]));
         DBConnector.getInstance().stop();
-        if(wypozyczenie == null){
+        if (wypozyczenie == null) {
             //sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie ma wypozyczenia o podanym ID");
             Printer.printError("Nie ma wypozyczenia o podanym ID");
             return -1;
@@ -160,7 +162,7 @@ public class Printer {
 //        }
         sTerminal.getScreen().refresh();
 
-        sTerminal.getTextGraphics().putString(sTerminal.getWorkspacePosition().getColumn()+3, sTerminal.getWorkspacePosition().getRow() + 8, "Aktualne dane:", SGR.BOLD);
+        sTerminal.getTextGraphics().putString(sTerminal.getWorkspacePosition().getColumn() + 3, sTerminal.getWorkspacePosition().getRow() + 8, "Aktualne dane:", SGR.BOLD);
         //sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + +5, list.get(0).getId() + " - " + list.get(0).getMarka()+" - "+list.get(0).getModel()+" - "+list.get(0).getDostepnosc()+" - "+list.get(0).getId_ubezpieczenia()+" - "+list.get(0).getStan_pojazdu()+" - "+list.get(0).getTyp());
 
         optionsTexts = new String[7];
@@ -171,29 +173,79 @@ public class Printer {
         optionsTexts[4] = "5. KLIENT (id): ";
         optionsTexts[5] = "6. CENA: ";
         optionsTexts[6] = "7. PRACOWNIK: ";
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + optionsTexts.length+4, optionsTexts[0] + wypozyczenie.getId_pojazdu());
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + optionsTexts.length+5, optionsTexts[1] + wypozyczenie.getData_wypozyczenia());
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + optionsTexts.length+6, optionsTexts[2] + wypozyczenie.getData_oddania());
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + optionsTexts.length+7, optionsTexts[3] + wypozyczenie.getKod_dostepu());
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + optionsTexts.length+8, optionsTexts[4] + wypozyczenie.getId_klienta());
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + optionsTexts.length+9, optionsTexts[5] + wypozyczenie.getCena());
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + optionsTexts.length+10, optionsTexts[6] + wypozyczenie.getPracownik());
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + optionsTexts.length + 4, optionsTexts[0] + wypozyczenie.getId_pojazdu());
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + optionsTexts.length + 5, optionsTexts[1] + wypozyczenie.getData_wypozyczenia());
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + optionsTexts.length + 6, optionsTexts[2] + wypozyczenie.getData_oddania());
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + optionsTexts.length + 7, optionsTexts[3] + wypozyczenie.getKod_dostepu());
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + optionsTexts.length + 8, optionsTexts[4] + wypozyczenie.getId_klienta());
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + optionsTexts.length + 9, optionsTexts[5] + wypozyczenie.getCena());
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + optionsTexts.length + 10, optionsTexts[6] + wypozyczenie.getPracownik());
 //        sTerminal.getScreen().refresh();
+//        String[] choices = UserInput.getUserInput(optionsTexts.length);
         String[] choices = UserInput.getUserInput(optionsTexts.length);
+        if (choices.length == 0) {
+            System.out.println("exit");
+            //sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie podano wszystkich informacji");
+            sTerminal.getScreen().refresh();
+            return -1;
+        }
 
+        wypozyczenie.setParameters(choices);
+        DBConnector.getInstance().editWypozyczenie(wypozyczenie);
 
         //printRentalInputMenu();
 
         return 0;
     }
+    public static int printRentalDeleteMenu() throws IOException {
+        int options = 1, localMargin = 10;
+        optionsTexts = new String[options];
+        final String OPTION_1 = "ID wypożyczenia: ";
 
+        optionsTexts[0] = OPTION_1;
+
+        STerminal sTerminal = STerminal.getInstance();
+
+        int workspaceColumn = sTerminal.getMenuPosition().getColumn();
+        int workspaceRow = sTerminal.getMenuPosition().getRow();
+        int margin = sTerminal.getMargin();
+
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow, "Podaj ID wypożyczenia, które chcesz usunąć", SGR.BOLD);
+
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 1, OPTION_1);
+        sTerminal.getScreen().refresh();
+
+        String[] choices = UserInput.getUserInput(options);
+        if (choices.length == 0) {
+            System.out.println("exit");
+            //sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie podano wszystkich informacji");
+            sTerminal.getScreen().refresh();
+            return -1;
+        }
+        DBConnector dbConnector = DBConnector.getInstance();
+        dbConnector.start();
+        Wypozyczenie wypozyczenie = dbConnector.entityManager.find(Wypozyczenie.class, Long.parseLong(choices[0]));
+        if (wypozyczenie == null) {
+            Printer.clearErrorPosition();
+            sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie ma wypożyczenia o tym id");
+            dbConnector.stop();
+            return -1;
+        } else {
+            dbConnector.deleteWypozyczenie(wypozyczenie);
+            dbConnector.stop();
+        }
+
+        return 0;
+    }
+//////////////////////////////////////////////////////////////
 
     public static int printClientMenu() throws IOException, InterruptedException {
-        int options = 3;
+        int options = 4;
         optionsTexts = new String[options];
         optionsTexts[0] = "1. Dodaj";
-        optionsTexts[1] = "2. Usuń";
-        optionsTexts[2] = "3. Wypisz";
+        optionsTexts[1] = "2. Edytuj";
+        optionsTexts[2] = "3. Usuń";
+        optionsTexts[3] = "4. Wypisz";
 
         STerminal sTerminal = STerminal.getInstance();
         int workspaceColumn = sTerminal.getWorkspacePosition().getColumn();
@@ -204,75 +256,190 @@ public class Printer {
         sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 1, optionsTexts[0], SGR.REVERSE);
         sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 2, optionsTexts[1]);
         sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 3, optionsTexts[2]);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 3, optionsTexts[3]);
         sTerminal.getScreen().refresh();
 
         int choice = UserInput.chooseOption(options);
         if (choice == -1) return -1;
         else if (choice == 1) printAddClientMenu();
-        else if (choice == 2) printDeleteClientMenu();
-        else if (choice == 3) printAllClient();
+        else if (choice == 2) printClientEditMenu();
+        else if (choice == 3) printDeleteClientMenu();
+        else if (choice == 4) printAllClient();
 
 
         return 0;
     }
 
-    public static void clearErrorPosition() throws IOException {
-        STerminal sTerminal = STerminal.getInstance();
-        //Printer.clearErrorPosition();
-        sTerminal.getTextGraphics().fillRectangle(sTerminal.getErrorPosition(), sTerminal.getErrorSize(), ' ');
-    }
+    public static int printAddClientMenu() throws IOException {
 
-    public static void refreshMenu(String[] optionsArray, int currentOption) throws IOException {
-        STerminal sTerminal = STerminal.getInstance();
-        int workspaceColumn = sTerminal.getWorkspacePosition().getColumn();
-        int workspaceRow = sTerminal.getWorkspacePosition().getRow();
-        int margin = sTerminal.getMargin();
-        for (int i = 0; i < optionsArray.length; i++) {
-            if (currentOption == i)
-                sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + i + 1, optionsArray[i], SGR.REVERSE);
-            else sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + i + 1, optionsArray[i]);
-        }
-        sTerminal.getScreen().refresh();
-    }
-
-    public static int printCarMenu() throws IOException, InterruptedException {
-        int options = 5;
+        int options = 7, localMargin = 10;
         optionsTexts = new String[options];
-        final String OPTION_1 = "1. Dodaj";
-        final String OPTION_2 = "2. Usuń";
-        final String OPTION_3 = "3. Edytuj";
-        final String OPTION_4 = "4. Wypożycz";
-        final String OPTION_5 = "5. Wypisz";
+        final String OPTION_1 = "1. NUMER PRAWA JAZDY: ";
+        final String OPTION_2 = "2. NAZWISKO: ";
+        final String OPTION_3 = "3. IMIE: ";
+        final String OPTION_4 = "4. DATA URODZENIA: ";
+        final String OPTION_5 = "5. ADRES: ";
+        final String OPTION_6 = "6. PESEL: ";
+        final String OPTION_7 = "7. TELEFON";
         optionsTexts[0] = OPTION_1;
         optionsTexts[1] = OPTION_2;
         optionsTexts[2] = OPTION_3;
         optionsTexts[3] = OPTION_4;
         optionsTexts[4] = OPTION_5;
+        optionsTexts[5] = OPTION_6;
+        optionsTexts[6] = OPTION_7;
+
 
         STerminal sTerminal = STerminal.getInstance();
 
-        int workspaceColumn = sTerminal.getWorkspacePosition().getColumn();
-        int workspaceRow = sTerminal.getWorkspacePosition().getRow();
+        int workspaceColumn = sTerminal.getMenuPosition().getColumn();
+        int workspaceRow = sTerminal.getMenuPosition().getRow();
         int margin = sTerminal.getMargin();
 
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow, "Co chcesz zrobić z pojazdem", SGR.BOLD);
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 1, "1. Dodaj", SGR.REVERSE);
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 2, "2. Usuń");
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 3, "3. Edytuj");
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 4, "4. Wypożycz");
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 5, "5. Wypisz");
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow, "Podaj dane", SGR.BOLD);
+        //todo
+        //typ automatycznie dodawany
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 1, OPTION_1);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 2, OPTION_2);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 3, OPTION_3);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 4, OPTION_4);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 5, OPTION_5);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 6, OPTION_6);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 7, OPTION_7);
         sTerminal.getScreen().refresh();
 
-        int choice = UserInput.chooseOption(Printer.getCarMenuOptions());
-        if (choice == -1) return -1;
-        else if (choice == 1) printCarInputMenu();
-        else if(choice == 2) printCarDeleteMenu();
-        else if(choice == 3) printCarEditMenu();
-        else if(choice == 4) printCarRentalMenu();
-        else if(choice == 5) printAllVehicles("Samochód");
+        String[] choices = UserInput.getUserInput(options);
+        if (choices.length == 0) {
+            System.out.println("exit");
+            //sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie podano wszystkich informacji");
+            sTerminal.getScreen().refresh();
+            return -1;
+        }
+        DBConnector dbConnector = DBConnector.getInstance();
+        Klient klient = new Klient(choices);
+        dbConnector.start();
+        dbConnector.addKlient(klient);
+        dbConnector.stop();
+        return 0;
+    }
+
+
+    public static int printClientEditMenu() throws IOException {
+        Printer.clearWorkingArea();
+        List<Klient> list = DBConnector.getAllClients();
+        STerminal sTerminal = STerminal.getInstance();
+        int workspaceColumn = sTerminal.getMenuPosition().getColumn();
+        int workspaceRow = sTerminal.getMenuPosition().getRow();
+        int margin = sTerminal.getMargin();
+        optionsTexts = new String[1];
+        optionsTexts[0] = "Podaj ID klienta, którego chcesz edytować: ";
+
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 1, optionsTexts[0]);
+
+
+        //sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow+list.size(), "Podaj ID pojazdu, który chcesz edytować: ", SGR.BOLD);
+        sTerminal.getScreen().refresh();
+        String[] choice = UserInput.getUserInput(1);
+        if (choice.length == 0) {
+            System.out.println("exit");
+            //sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie podano wszystkich informacji");
+            sTerminal.getScreen().refresh();
+            return -1;
+        }
+        DBConnector.getInstance().start();
+        Klient klient = DBConnector.getInstance().entityManager.find(Klient.class, Long.parseLong(choice[0]));
+        DBConnector.getInstance().stop();
+        if (klient == null) {
+            //sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie ma wypozyczenia o podanym ID");
+            Printer.printError("Nie ma klienta o podanym ID");
+            return -1;
+        }
+
+
+        Printer.clearWorkingArea();
+
+        //if(list.size() == 0) sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 5, "Brak pojazdów");
+//        for (int i = 0; i < list.size(); i++) {
+//            sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + i+5, list.get(i).getId() + " - " + list.get(i).getMarka()+" - "+list.get(i).getModel()+" - "+list.get(i).getDostepnosc()+" - "+list.get(i).getId_ubezpieczenia()+" - "+list.get(i).getStan_pojazdu()+" - "+list.get(i).getTyp());
+//        }
+        sTerminal.getScreen().refresh();
+
+        sTerminal.getTextGraphics().putString(sTerminal.getWorkspacePosition().getColumn() + 3, sTerminal.getWorkspacePosition().getRow() + 8, "Aktualne dane:", SGR.BOLD);
+        //sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + +5, list.get(0).getId() + " - " + list.get(0).getMarka()+" - "+list.get(0).getModel()+" - "+list.get(0).getDostepnosc()+" - "+list.get(0).getId_ubezpieczenia()+" - "+list.get(0).getStan_pojazdu()+" - "+list.get(0).getTyp());
+
+        optionsTexts = new String[7];
+        optionsTexts[0] = "1. NUMER PRAWA JAZDY: ";
+        optionsTexts[1] = "2. NAZWISKO: ";
+        optionsTexts[2] = "3. IMIE: ";
+        optionsTexts[3] = "4. DATA URODZENIA: ";
+        optionsTexts[4] = "5. ADRES: ";
+        optionsTexts[5] = "6. PESEL: ";
+        optionsTexts[6] = "7. TELEFON";
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + optionsTexts.length + 4, optionsTexts[0] + klient.getNr_prawa_jazdy());
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + optionsTexts.length + 5, optionsTexts[1] + klient.getNazwisko());
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + optionsTexts.length + 6, optionsTexts[2] + klient.getImie());
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + optionsTexts.length + 7, optionsTexts[3] + klient.getData_urodzenia());
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + optionsTexts.length + 8, optionsTexts[4] + klient.getAdres());
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + optionsTexts.length + 9, optionsTexts[5] + klient.getPesel());
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + optionsTexts.length + 10, optionsTexts[6] + klient.getTelefon());
+//        sTerminal.getScreen().refresh();
+//        String[] choices = UserInput.getUserInput(optionsTexts.length);
+        String[] choices = UserInput.getUserInput(optionsTexts.length);
+        if (choices.length == 0) {
+            System.out.println("exit");
+            //sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie podano wszystkich informacji");
+            sTerminal.getScreen().refresh();
+            return -1;
+        }
+
+        klient.setParameters(choices);
+        DBConnector.getInstance().editKlient(klient);
+
+        //printRentalInputMenu();
 
         return 0;
+    }
 
+
+    public static int printDeleteClientMenu() throws IOException {
+        int options = 1, localMargin = 10;
+        optionsTexts = new String[options];
+        final String OPTION_1 = "ID klienta: ";
+
+        optionsTexts[0] = OPTION_1;
+
+        STerminal sTerminal = STerminal.getInstance();
+
+        int workspaceColumn = sTerminal.getMenuPosition().getColumn();
+        int workspaceRow = sTerminal.getMenuPosition().getRow();
+        int margin = sTerminal.getMargin();
+
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow, "Podaj ID klienta, którego chcesz usunąć", SGR.BOLD);
+        //todo
+        //typ automatycznie dodawany
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 1, OPTION_1);
+        sTerminal.getScreen().refresh();
+
+        String[] choices = UserInput.getUserInput(options);
+        if (choices.length == 0) {
+            System.out.println("exit");
+            //sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie podano wszystkich informacji");
+            sTerminal.getScreen().refresh();
+            return -1;
+        }
+        DBConnector dbConnector = DBConnector.getInstance();
+        dbConnector.start();
+        Klient klient = dbConnector.entityManager.find(Klient.class, Long.parseLong(choices[0]));
+        if (klient == null) {
+            Printer.clearErrorPosition();
+            sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie ma klienta o tym id");
+            dbConnector.stop();
+            return -1;
+        } else dbConnector.deleteKlient(klient);
+        dbConnector.stop();
+
+
+        return 0;
     }
 
     public static int printAllClient() throws IOException {
@@ -314,6 +481,49 @@ public class Printer {
         //return 0;
     }
 
+////////////////////////////////////////////////////////////////
+
+    public static int printCarMenu() throws IOException, InterruptedException {
+        int options = 5;
+        optionsTexts = new String[options];
+        final String OPTION_1 = "1. Dodaj";
+        final String OPTION_2 = "2. Usuń";
+        final String OPTION_3 = "3. Edytuj";
+        final String OPTION_4 = "4. Wypożycz";
+        final String OPTION_5 = "5. Wypisz";
+        optionsTexts[0] = OPTION_1;
+        optionsTexts[1] = OPTION_2;
+        optionsTexts[2] = OPTION_3;
+        optionsTexts[3] = OPTION_4;
+        optionsTexts[4] = OPTION_5;
+
+        STerminal sTerminal = STerminal.getInstance();
+
+        int workspaceColumn = sTerminal.getWorkspacePosition().getColumn();
+        int workspaceRow = sTerminal.getWorkspacePosition().getRow();
+        int margin = sTerminal.getMargin();
+
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow, "Co chcesz zrobić z pojazdem", SGR.BOLD);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 1, "1. Dodaj", SGR.REVERSE);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 2, "2. Usuń");
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 3, "3. Edytuj");
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 4, "4. Wypożycz");
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 5, "5. Wypisz");
+        sTerminal.getScreen().refresh();
+
+        int choice = UserInput.chooseOption(Printer.getCarMenuOptions());
+        if (choice == -1) return -1;
+        else if (choice == 1) printCarInputMenu();
+        else if (choice == 2) printCarDeleteMenu();
+        else if (choice == 3) printCarEditMenu();
+        else if (choice == 4) printCarRentalMenu();
+        else if (choice == 5) printAllVehicles("Samochód");
+
+        return 0;
+
+    }
+
+
     public static int printCarInputMenu() throws IOException {
         int options = 5, localMargin = 10;
         optionsTexts = new String[options];
@@ -338,7 +548,7 @@ public class Printer {
         sTerminal.getScreen().refresh();
 
         String[] choices = UserInput.getUserInput(options);
-        if(choices.length  == 0){
+        if (choices.length == 0) {
             System.out.println("exit");
             //sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie podano wszystkich informacji");
             sTerminal.getScreen().refresh();
@@ -370,21 +580,21 @@ public class Printer {
         //sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow+list.size(), "Podaj ID pojazdu, który chcesz edytować: ", SGR.BOLD);
         sTerminal.getScreen().refresh();
         String[] choice = UserInput.getUserInput(1);
-        if(choice.length  == 0){
+        if (choice.length == 0) {
             System.out.println("exit");
             return -1;
         }
         DBConnector.getInstance().start();
         Pojazd pojazd = DBConnector.getInstance().entityManager.find(Pojazd.class, Long.parseLong(choice[0]));
         for (Pojazd p : list) {
-            if(p.getId() == Long.parseLong(choice[0])){
+            if (p.getId() == Long.parseLong(choice[0])) {
                 pojazd = p;
                 break;
             }
         }
 
         DBConnector.getInstance().stop();
-        if(pojazd == null){
+        if (pojazd == null) {
             //sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie ma pojazdu o podanym ID");
             Printer.printError("Nie ma pojazdu o podanym ID");
             return -1;
@@ -392,21 +602,21 @@ public class Printer {
 
         Printer.clearWorkingArea();
         sTerminal.getScreen().refresh();
-        sTerminal.getTextGraphics().putString(sTerminal.getWorkspacePosition().getColumn()+3, sTerminal.getWorkspacePosition().getRow() + 8, "Aktualne dane:", SGR.BOLD);
+        sTerminal.getTextGraphics().putString(sTerminal.getWorkspacePosition().getColumn() + 3, sTerminal.getWorkspacePosition().getRow() + 8, "Aktualne dane:", SGR.BOLD);
         optionsTexts = new String[5];
         optionsTexts[0] = "1. MODEL: ";
         optionsTexts[1] = "2. MARKA: ";
         optionsTexts[2] = "3. NR_UBEZPIECZENIA: ";
         optionsTexts[3] = "4. STAN DOSTEPU: ";
         optionsTexts[4] = "5. DOSTEPNOSC: ";
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + optionsTexts.length+4, optionsTexts[0] + pojazd.getModel());
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + optionsTexts.length+5, optionsTexts[1] + pojazd.getMarka());
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + optionsTexts.length+6, optionsTexts[2] + pojazd.getId_ubezpieczenia());
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + optionsTexts.length+7, optionsTexts[3] + pojazd.getStan_pojazdu());
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + optionsTexts.length+8, optionsTexts[4] + pojazd.getDostepnosc());
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + optionsTexts.length + 4, optionsTexts[0] + pojazd.getModel());
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + optionsTexts.length + 5, optionsTexts[1] + pojazd.getMarka());
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + optionsTexts.length + 6, optionsTexts[2] + pojazd.getId_ubezpieczenia());
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + optionsTexts.length + 7, optionsTexts[3] + pojazd.getStan_pojazdu());
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + optionsTexts.length + 8, optionsTexts[4] + pojazd.getDostepnosc());
 
         String[] choices = UserInput.getUserInput(optionsTexts.length);
-        if(choices.length  == 0){
+        if (choices.length == 0) {
             System.out.println("exit");
             //sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie podano wszystkich informacji");
             sTerminal.getScreen().refresh();
@@ -438,7 +648,7 @@ public class Printer {
         sTerminal.getScreen().refresh();
 
         String[] choices = UserInput.getUserInput(options);
-        if(choices.length  == 0){
+        if (choices.length == 0) {
             System.out.println("exit");
             //sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie podano wszystkich informacji");
             sTerminal.getScreen().refresh();
@@ -447,7 +657,7 @@ public class Printer {
         DBConnector dbConnector = DBConnector.getInstance();
         dbConnector.start();
         Pojazd pojazd = dbConnector.entityManager.find(Pojazd.class, Long.parseLong(choices[0]));
-        List<Wypozyczenie> list = DBConnector.getInstance().entityManager.createQuery("SELECT a FROM Wypozyczenie a WHERE id_pojazdu_id='"+choices[0]+"'", Wypozyczenie.class).getResultList();
+        List<Wypozyczenie> list = DBConnector.getInstance().entityManager.createQuery("SELECT a FROM Wypozyczenie a WHERE id_pojazdu_id='" + choices[0] + "'", Wypozyczenie.class).getResultList();
 
         if (pojazd == null) {
             Printer.clearErrorPosition();
@@ -455,60 +665,39 @@ public class Printer {
             Printer.printError("Nie ma pojazdu o tym id");
             dbConnector.stop();
             return -1;
-        }
-        else if(list.size()>0){
+        } else if (list.size() > 0) {
             Printer.clearErrorPosition();
             //sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Pojazd jest w trakcie wypożyczenia");
             printError("Pojazd jest w trakcie wypożyczenia");
             dbConnector.stop();
             return -1;
-        }
-        else dbConnector.deletePojazd(pojazd);
+        } else dbConnector.deletePojazd(pojazd);
         dbConnector.stop();
 
         return 0;
     }
 
-    public static int printRentalDeleteMenu() throws IOException {
-        int options = 1, localMargin = 10;
-        optionsTexts = new String[options];
-        final String OPTION_1 = "ID wypożyczenia: ";
+//////////////////////////////////////////////////////
 
-        optionsTexts[0] = OPTION_1;
 
+
+    public static void clearErrorPosition() throws IOException {
         STerminal sTerminal = STerminal.getInstance();
+        //Printer.clearErrorPosition();
+        sTerminal.getTextGraphics().fillRectangle(sTerminal.getErrorPosition(), sTerminal.getErrorSize(), ' ');
+    }
 
-        int workspaceColumn = sTerminal.getMenuPosition().getColumn();
-        int workspaceRow = sTerminal.getMenuPosition().getRow();
+    public static void refreshMenu(String[] optionsArray, int currentOption) throws IOException {
+        STerminal sTerminal = STerminal.getInstance();
+        int workspaceColumn = sTerminal.getWorkspacePosition().getColumn();
+        int workspaceRow = sTerminal.getWorkspacePosition().getRow();
         int margin = sTerminal.getMargin();
-
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow, "Podaj ID wypożyczenia, które chcesz usunąć", SGR.BOLD);
-
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 1, OPTION_1);
+        for (int i = 0; i < optionsArray.length; i++) {
+            if (currentOption == i)
+                sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + i + 1, optionsArray[i], SGR.REVERSE);
+            else sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + i + 1, optionsArray[i]);
+        }
         sTerminal.getScreen().refresh();
-
-        String[] choices = UserInput.getUserInput(options);
-        if(choices.length  == 0){
-            System.out.println("exit");
-            //sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie podano wszystkich informacji");
-            sTerminal.getScreen().refresh();
-            return -1;
-        }
-        DBConnector dbConnector = DBConnector.getInstance();
-        dbConnector.start();
-        Wypozyczenie wypozyczenie = dbConnector.entityManager.find(Wypozyczenie.class, Long.parseLong(choices[0]));
-        if (wypozyczenie == null) {
-            Printer.clearErrorPosition();
-            sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie ma wypożyczenia o tym id");
-            dbConnector.stop();
-            return -1;
-        }
-        else {
-            dbConnector.deleteWypozyczenie(wypozyczenie);
-            dbConnector.stop();
-        }
-
-        return 0;
     }
 
     public static void clearWorkingArea() throws IOException {
@@ -560,15 +749,17 @@ public class Printer {
         int choice = UserInput.chooseOption(Printer.getBicycleMenuOptions());
         if (choice == -1) return -1;
         else if (choice == 1) printBicycleInputMenu();
-//        else if(choice == 2) printBicycleDeleteMenu();
-//        else if(choice == 3) printBicycleEditMenu();
-        else if(choice == 4) printBicycleRentalMenu();
-        else if(choice == 5) printAllVehicles("Rower");
+        else if(choice == 2) printCarDeleteMenu();
+        else if(choice == 3) printCarEditMenu();
+        else if (choice == 4) printBicycleRentalMenu();
+        else if (choice == 5) printAllVehicles("Rower");
 
 
         return 0;
 
     }
+
+
 
     public static int printBicycleInputMenu() throws IOException {
         int options = 5, localMargin = 10;
@@ -599,7 +790,7 @@ public class Printer {
         sTerminal.getScreen().refresh();
 
         String[] choices = UserInput.getUserInput(options);
-        if(choices.length  == 0){
+        if (choices.length == 0) {
             System.out.println("exit");
             //sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie podano wszystkich informacji");
             sTerminal.getScreen().refresh();
@@ -648,10 +839,10 @@ public class Printer {
         int choice = UserInput.chooseOption(Printer.getScooterMenuOptions());
         if (choice == -1) return -1;
         else if (choice == 1) printScooterInputMenu();
-//        else if(choice == 2) printScooterDeleteMenu();
-//        else if(choice == 3) printScooterEditMenu();
-        else if(choice == 4) printScooterRentalMenu();
-        else if(choice == 5) printAllVehicles("Skuter");
+        else if(choice == 2) printCarDeleteMenu();
+        else if(choice == 3) printCarEditMenu();
+        else if (choice == 4) printScooterRentalMenu();
+        else if (choice == 5) printAllVehicles("Skuter");
 
         return 0;
 
@@ -688,7 +879,7 @@ public class Printer {
         sTerminal.getScreen().refresh();
 
         String[] choices = UserInput.getUserInput(options);
-        if(choices.length  == 0){
+        if (choices.length == 0) {
             System.out.println("exit");
             //sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie podano wszystkich informacji");
             sTerminal.getScreen().refresh();
@@ -745,7 +936,7 @@ public class Printer {
 // dodanie klienta i pojazdu
 
         String[] choices = UserInput.getUserInput(options);
-        if(choices.length  == 0){
+        if (choices.length == 0) {
             System.out.println("exit");
             //sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie podano wszystkich informacji");
             sTerminal.getScreen().refresh();
@@ -758,6 +949,7 @@ public class Printer {
         return 0;
 
     }
+
     public static int printCarRentalMenu() throws IOException, InterruptedException {
 
         int options = 7, localMargin = 10;
@@ -797,7 +989,7 @@ public class Printer {
         sTerminal.getScreen().refresh();
 
         String[] choices = UserInput.getUserInput(options);
-        if(choices.length  == 0){
+        if (choices.length == 0) {
             System.out.println("exit");
             sTerminal.getScreen().refresh();
             return -1;
@@ -806,8 +998,8 @@ public class Printer {
         Wypozyczenie wypozyczenie = new Wypozyczenie(choices);
 
         dbConnector.start();
-        Pojazd pojazd = (Pojazd)dbConnector.entityManager.find(Pojazd.class, Long.parseLong(choices[0]));
-        if(pojazd == null){
+        Pojazd pojazd = (Pojazd) dbConnector.entityManager.find(Pojazd.class, Long.parseLong(choices[0]));
+        if (pojazd == null) {
             Printer.clearErrorPosition();
             sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie ma pojazdu o tym id");
             sTerminal.getScreen().refresh();
@@ -817,7 +1009,7 @@ public class Printer {
             return -1;
         }
         Klient klient = dbConnector.entityManager.find(Klient.class, Long.parseLong(choices[4]));
-        if(klient == null){
+        if (klient == null) {
             Printer.clearErrorPosition();
             sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie ma klienta o tym id");
             sTerminal.getScreen().refresh();
@@ -872,7 +1064,7 @@ public class Printer {
         sTerminal.getScreen().refresh();
 
         String[] choices = UserInput.getUserInput(options);
-        if(choices.length  == 0){
+        if (choices.length == 0) {
             System.out.println("exit");
             //sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie podano wszystkich informacji");
             sTerminal.getScreen().refresh();
@@ -889,117 +1081,19 @@ public class Printer {
 
     }
 
-    public static int printAddClientMenu() throws IOException {
-
-        int options = 7, localMargin = 10;
-        optionsTexts = new String[options];
-        final String OPTION_1 = "1. NUMER PRAWA JAZDY: ";
-        final String OPTION_2 = "2. NAZWISKO: ";
-        final String OPTION_3 = "3. IMIE: ";
-        final String OPTION_4 = "4. DATA URODZENIA: ";
-        final String OPTION_5 = "5. ADRES: ";
-        final String OPTION_6 = "6. PESEL: ";
-        final String OPTION_7 = "7. TELEFON";
-        optionsTexts[0] = OPTION_1;
-        optionsTexts[1] = OPTION_2;
-        optionsTexts[2] = OPTION_3;
-        optionsTexts[3] = OPTION_4;
-        optionsTexts[4] = OPTION_5;
-        optionsTexts[5] = OPTION_6;
-        optionsTexts[6] = OPTION_7;
-
-
-        STerminal sTerminal = STerminal.getInstance();
-
-        int workspaceColumn = sTerminal.getMenuPosition().getColumn();
-        int workspaceRow = sTerminal.getMenuPosition().getRow();
-        int margin = sTerminal.getMargin();
-
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow, "Podaj dane", SGR.BOLD);
-        //todo
-        //typ automatycznie dodawany
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 1, OPTION_1);
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 2, OPTION_2);
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 3, OPTION_3);
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 4, OPTION_4);
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 5, OPTION_5);
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 6, OPTION_6);
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 7, OPTION_7);
-        sTerminal.getScreen().refresh();
-
-        String[] choices = UserInput.getUserInput(options);
-        if(choices.length  == 0){
-            System.out.println("exit");
-            //sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie podano wszystkich informacji");
-            sTerminal.getScreen().refresh();
-            return -1;
-        }
-        DBConnector dbConnector = DBConnector.getInstance();
-        Klient klient = new Klient(choices);
-        dbConnector.start();
-        dbConnector.addKlient(klient);
-        dbConnector.stop();
-        return 0;
-    }
-
-    public static int printDeleteClientMenu() throws IOException {
-        int options = 1, localMargin = 10;
-        optionsTexts = new String[options];
-        final String OPTION_1 = "ID klienta: ";
-
-        optionsTexts[0] = OPTION_1;
-
-        STerminal sTerminal = STerminal.getInstance();
-
-        int workspaceColumn = sTerminal.getMenuPosition().getColumn();
-        int workspaceRow = sTerminal.getMenuPosition().getRow();
-        int margin = sTerminal.getMargin();
-
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow, "Podaj ID klienta, którego chcesz usunąć", SGR.BOLD);
-        //todo
-        //typ automatycznie dodawany
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 1, OPTION_1);
-        sTerminal.getScreen().refresh();
-
-        String[] choices = UserInput.getUserInput(options);
-        if(choices.length  == 0){
-            System.out.println("exit");
-            //sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie podano wszystkich informacji");
-            sTerminal.getScreen().refresh();
-            return -1;
-        }
-        DBConnector dbConnector = DBConnector.getInstance();
-        dbConnector.start();
-        Klient klient = dbConnector.entityManager.find(Klient.class, Long.parseLong(choices[0]));
-        if (klient == null) {
-            Printer.clearErrorPosition();
-            sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie ma klienta o tym id");
-            dbConnector.stop();
-            return -1;
-        }
-        else dbConnector.deleteKlient(klient);
-        dbConnector.stop();
-
-
-        return 0;
-    }
-
     public static void printFooter() throws IOException {
-        STerminal.getInstance().getTextGraphics().putString(STerminal.getInstance().getFooterPosition().getColumn()+17, STerminal.getInstance().getFooterPosition().getRow(), "All Rights Reserved © Klimek & Gawędzki");
+        STerminal.getInstance().getTextGraphics().putString(STerminal.getInstance().getFooterPosition().getColumn() + 17, STerminal.getInstance().getFooterPosition().getRow(), "All Rights Reserved © Klimek & Gawędzki");
     }
 
     public static int printAllVehicles(String vehicleType) throws IOException {
         List<Pojazd> list = null;
         if (vehicleType == "Samochód") {
             list = DBConnector.getInstance().entityManager.createQuery("SELECT a FROM Pojazd a WHERE typ='Samochód'", Pojazd.class).getResultList();
-        }
-        else if (vehicleType == "Rower") {
+        } else if (vehicleType == "Rower") {
             list = DBConnector.getInstance().entityManager.createQuery("SELECT a FROM Pojazd a WHERE typ='Rower'", Pojazd.class).getResultList();
-        }
-        else if (vehicleType == "Skuter") {
+        } else if (vehicleType == "Skuter") {
             list = DBConnector.getInstance().entityManager.createQuery("SELECT a FROM Pojazd a WHERE typ='Skuter'", Pojazd.class).getResultList();
         }
-
 
         STerminal sTerminal = STerminal.getInstance();
 
@@ -1008,20 +1102,21 @@ public class Printer {
         int workspaceRow = sTerminal.getMenuPosition().getRow();
         int margin = sTerminal.getMargin();
         Printer.clearWorkingArea();
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow+1, "Znalezione pojazdy", SGR.BOLD);
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow+3, "ID - Marka - Model - Dostępność - ID ubezpieczenia - Stan - Typ", SGR.ITALIC);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 1, "Znalezione pojazdy", SGR.BOLD);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 3, "ID - Marka - Model - Dostępność - ID ubezpieczenia - Stan - Typ", SGR.ITALIC);
 
-        if(list.size() == 0) sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 5, "Brak pojazdów");
+        if (list.size() == 0)
+            sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 5, "Brak pojazdów");
         for (int i = 0; i < list.size(); i++) {
-            sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + i+5, list.get(i).getId() + " - " + list.get(i).getMarka()+" - "+list.get(i).getModel()+" - "+list.get(i).getDostepnosc()+" - "+list.get(i).getId_ubezpieczenia()+" - "+list.get(i).getStan_pojazdu()+" - "+list.get(i).getTyp());
+            sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + i + 5, list.get(i).getId() + " - " + list.get(i).getMarka() + " - " + list.get(i).getModel() + " - " + list.get(i).getDostepnosc() + " - " + list.get(i).getId_ubezpieczenia() + " - " + list.get(i).getStan_pojazdu() + " - " + list.get(i).getTyp());
         }
         sTerminal.getScreen().refresh();
 
         KeyStroke keyPressed;
-        while(true){
+        while (true) {
             keyPressed = sTerminal.getTerminal().pollInput();
             if (keyPressed != null) {
-                switch(keyPressed.getKeyType()){
+                switch (keyPressed.getKeyType()) {
                     case Enter:
                     case Escape:
                         return 0;
@@ -1037,7 +1132,7 @@ public class Printer {
         STerminal sTerminal = STerminal.getInstance();
 
         Printer.clearErrorPosition();
-        sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), " "+error);
+        sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), " " + error);
     }
 
 
