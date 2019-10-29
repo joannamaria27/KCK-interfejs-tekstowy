@@ -32,11 +32,27 @@ public class STerminal {
     private TerminalPosition footerPosition = new TerminalPosition(1, 34);
     private TerminalPosition errorPosition = new TerminalPosition(0, 30);
 
-    private TextColor headerFrontColor = new TextColor.RGB(255, 119, 74);
-    private TextColor headerBackColor = new TextColor.RGB(74, 204, 45);
+    private TextColor headerFrontColor = new TextColor.RGB(255, 240, 175);
+    private TextColor headerBackColor = new TextColor.RGB(87, 68, 59);
 
-    private TextColor workspaceFrontColor = new TextColor.RGB(255, 119, 74);
-    private TextColor workspaceBackColor = new TextColor.RGB(255, 221, 226);
+    private TextColor workspaceFrontColor = new TextColor.RGB(87, 68, 59);
+    private TextColor workspaceBackColor = new TextColor.RGB(177, 233, 255);
+
+    public void setHeaderFrontColor(TextColor headerFrontColor) {
+        this.headerFrontColor = headerFrontColor;
+    }
+
+    public void setHeaderBackColor(TextColor headerBackColor) {
+        this.headerBackColor = headerBackColor;
+    }
+
+    public void setWorkspaceFrontColor(TextColor workspaceFrontColor) {
+        this.workspaceFrontColor = workspaceFrontColor;
+    }
+
+    public void setWorkspaceBackColor(TextColor workspaceBackColor) {
+        this.workspaceBackColor = workspaceBackColor;
+    }
 
     private static STerminal instance;
     private Terminal terminal = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize).createTerminal();
@@ -126,13 +142,13 @@ public class STerminal {
         textGraphics.setForegroundColor(headerFrontColor);
         textGraphics.setBackgroundColor(headerBackColor);
         textGraphics.putString(tp.getColumn(), tp.getRow(), "                                                                              \n");
-        textGraphics.putString(tp.getColumn(), tp.getRow()+1, "██╗    ██╗██╗   ██╗██████╗  ██████╗ ███████╗██╗   ██╗ ██████╗███████╗ █████╗ ██╗     ███╗   ██╗██╗ █████╗\n");
-        textGraphics.putString(tp.getColumn(), tp.getRow()+2, "██║    ██║╚██╗ ██╔╝██╔══██╗██╔═══██╗╚══███╔╝╚██╗ ██╔╝██╔════╝╚══███╔╝██╔══██╗██║     ████╗  ██║██║██╔══██╗\n");
-        textGraphics.putString(tp.getColumn(), tp.getRow()+3, "██║ █╗ ██║ ╚████╔╝ ██████╔╝██║   ██║  ███╔╝  ╚████╔╝ ██║       ███╔╝ ███████║██║     ██╔██╗ ██║██║███████║\n");
-        textGraphics.putString(tp.getColumn(), tp.getRow()+4, "██║███╗██║  ╚██╔╝  ██╔═══╝ ██║   ██║ ███╔╝    ╚██╔╝  ██║      ███╔╝  ██╔══██║██║     ██║╚██╗██║██║██╔══██║\n");
-        textGraphics.putString(tp.getColumn(), tp.getRow()+5, "╚███╔███╔╝   ██║   ██║     ╚██████╔╝███████╗   ██║   ╚██████╗███████╗██║  ██║███████╗██║ ╚████║██║██║  ██║\n");
-        textGraphics.putString(tp.getColumn(), tp.getRow()+6, " ╚══╝╚══╝    ╚═╝   ╚═╝      ╚═════╝ ╚══════╝   ╚═╝    ╚═════╝╚══════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝\n");
-        textGraphics.putString(tp.getColumn(), tp.getRow()+7, "                                                                              \n\n");
+        textGraphics.putString(tp.getColumn(), tp.getRow()+1, "     ██╗    ██╗██╗   ██╗██████╗  █████╗ ███████╗██╗   ██╗ █████╗███████╗         \n");
+        textGraphics.putString(tp.getColumn(), tp.getRow()+2, "     ██║    ██║╚██╗ ██╔╝██╔══██╗██╔══██╗╚══███╔╝╚██╗ ██╔╝██╔═══╝╚══███╔╝       \n");
+        textGraphics.putString(tp.getColumn(), tp.getRow()+3, "     ██║ █╗ ██║ ╚████╔╝ ██████╔╝██║  ██║  ███╔╝  ╚████╔╝ ██║      ███╔╝        \n");
+        textGraphics.putString(tp.getColumn(), tp.getRow()+4, "     ██║███╗██║  ╚██╔╝  ██╔═══╝ ██║  ██║ ███╔╝    ╚██╔╝  ██║     ███╔╝         \n");
+        textGraphics.putString(tp.getColumn(), tp.getRow()+5, "     ╚███╔███╔╝   ██║   ██║     ╚█████╔╝███████╗   ██║   ╚█████╗███████╗       \n");
+        textGraphics.putString(tp.getColumn(), tp.getRow()+6, "      ╚══╝╚══╝    ╚═╝   ╚═╝      ╚════╝ ╚══════╝   ╚═╝    ╚════╝╚══════╝       \n");
+        textGraphics.putString(tp.getColumn(), tp.getRow()+7, "                                                                               \n\n");
         screen.refresh();
         textGraphics.setBackgroundColor(TextColor.ANSI.WHITE);
         textGraphics.setForegroundColor(TextColor.ANSI.BLUE);
@@ -141,6 +157,8 @@ public class STerminal {
 
     public void auto(TerminalPosition tp) throws IOException, InterruptedException {
         textGraphics.setBackgroundColor(TextColor.ANSI.DEFAULT);
+
+        textGraphics.setForegroundColor(headerFrontColor);
         for (int j = 0; j < 80; j++) {
             textGraphics.putString(tp.getColumn()+j, tp.getRow()+1, "            :%XS@8XSSSSSS@%                       ");
             textGraphics.putString(tp.getColumn()+j, tp.getRow()+2, "            S8   :8        @@                     ");
@@ -153,10 +171,11 @@ public class STerminal {
             textGraphics.putString(tp.getColumn()+j, tp.getRow()+9, " @t.8:      X%  .8          @t      X% ;8         ");
             textGraphics.putString(tp.getColumn()+j, tp.getRow()+10, "  XS8S     :@@SSS8XSSSSSSSSS88.    :8XSX          ");
             textGraphics.putString(tp.getColumn()+j, tp.getRow()+11, "    S8S888@8@                @8@88@8@X            ");
-            textGraphics.putString(j+3, 25, String.valueOf(Symbols.BOLD_SINGLE_LINE_VERTICAL));
+            textGraphics.putString(j, 25, String.valueOf(Symbols.BOLD_SINGLE_LINE_VERTICAL));
             Thread.sleep(25);
             screen.refresh();
         }
-        textGraphics.setBackgroundColor(TextColor.ANSI.WHITE);
+        textGraphics.setBackgroundColor(workspaceBackColor);
+        textGraphics.setForegroundColor(workspaceFrontColor);
     }
 }
