@@ -116,6 +116,6 @@ public class Wypozyczenie {
         pracownik=choices[6];
 
 
-
     }
+    public Wypozyczenie(){}
 }

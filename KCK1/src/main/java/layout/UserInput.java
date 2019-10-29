@@ -61,6 +61,12 @@ public class UserInput {
                         break;
                     case Enter:
                         strings[currentIndex] = sb.toString();
+                        if(sb.toString().length() == 0){
+                            //Printer.clearWorkingArea();
+                            sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie pozostawiaj wolnych pól");
+                            STerminal.getInstance().getScreen().refresh();
+                            break;
+                        }
                         Printer.refreshMenu(Printer.getOptionsTexts(), i);
                         currentIndex++;
                         i++;
@@ -76,6 +82,9 @@ public class UserInput {
                         sTerminal.getTextGraphics().putString(sTerminal.getWorkspacePosition().getColumn() + Printer.getOptionsTexts()[i-1].length() + marginFromText, sTerminal.getWorkspacePosition().getRow()+i, sb.toString(), SGR.BOLD);
                         sTerminal.getScreen().refresh();
                         break;
+                    case Escape:
+                        strings = new String[0];
+                        return strings;
                 }
             }
         }

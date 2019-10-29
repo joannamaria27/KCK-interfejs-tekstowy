@@ -88,9 +88,7 @@ public class DBConnector {
         entityManager.remove(k);
     }
     public void deleteWypozyczenie(Wypozyczenie w) {
-        entityManager.getTransaction().begin();
         entityManager.remove(w);
-        entityManager.getTransaction().commit();
     }
 
     // nie wiem czy działa
