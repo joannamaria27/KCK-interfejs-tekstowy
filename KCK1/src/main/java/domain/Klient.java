@@ -73,6 +73,16 @@ public class Klient {
         this.telefon = telefon;
     }
 
+    public void setParameters(String[] choices){
+        nr_prawa_jazdy = choices[0];
+        nazwisko = choices[1];
+        imie = choices[2];
+        data_urodzenia = choices[3];
+        adres = choices[4];
+        pesel = choices[5];
+        telefon = choices[6];
+    }
+
     @Id
     @GeneratedValue
     private long id;
