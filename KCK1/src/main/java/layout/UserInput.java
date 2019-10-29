@@ -33,7 +33,7 @@ public class UserInput {
                         return currentOption;
                     case Escape:
                         Printer.clearWorkingArea();
-                        sTerminal.auto(sTerminal.getHeaderPosition());
+                        //sTerminal.auto(sTerminal.getHeaderPosition());
                         return -1;
                 }
             }

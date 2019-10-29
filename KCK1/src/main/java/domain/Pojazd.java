@@ -90,13 +90,12 @@ import javax.persistence.Id;
     }
 
     public Pojazd(String[] choices, String type){
-        typ=choices[0];
-        marka = choices[1];
-        model = choices[2];
-        id_ubezpieczenia=choices[3];
-        stan_pojazdu = choices[4];
-        dostepnosc = choices[5];
-        typ = type;
+        typ=type;
+        marka = choices[0];
+        model = choices[1];
+        id_ubezpieczenia=choices[2];
+        stan_pojazdu = choices[3];
+        dostepnosc = choices[4];
     }
 
 
