@@ -123,4 +123,9 @@ public class DBConnector {
     public static List<Pojazd> getAllCars() throws IOException {
         return DBConnector.getInstance().entityManager.createQuery("SELECT a FROM Pojazd a", Pojazd.class).getResultList();
     }
+
+    public static List<Wypozyczenie> getAllRental() throws IOException {
+        return DBConnector.getInstance().entityManager.createQuery("SELECT a FROM Wypozyczenie a", Wypozyczenie.class).getResultList();
+    }
+
 }
