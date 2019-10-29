@@ -5,6 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity public class Pojazd {
+
+    public Pojazd(){}
     public long getId() {
         return id;
     }

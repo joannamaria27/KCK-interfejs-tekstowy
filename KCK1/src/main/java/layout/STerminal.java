@@ -16,16 +16,19 @@ public class STerminal {
 
     private int rows = 35, columns = 78, margin = 3;
 
-    private TerminalSize headerSize = new TerminalSize(columns, (int)rows/5);
-    private TerminalSize workspaceSize = new TerminalSize(columns, 4*(int)rows/5 + (int)rows/5);
+    private TerminalSize headerSize = new TerminalSize(columns, 8);
+    private TerminalSize workspaceSize = new TerminalSize(columns, 22);
     private TerminalSize terminalSize = new TerminalSize(columns, rows);
+    private TerminalSize footerSize = new TerminalSize(columns, 2);
+    private TerminalSize errorSize = new TerminalSize(columns, 2);
 
     private TerminalPosition headerPosition = new TerminalPosition(0, 0);
     private TerminalPosition workspacePosition = new TerminalPosition(0, headerSize.getRows()+1);
     private TerminalPosition menuPosition = new TerminalPosition(0, headerSize.getRows()+1);
     private TerminalPosition inputPosition = new TerminalPosition(25, headerSize.getRows()+2);
     private TerminalPosition pathPosition = new TerminalPosition(1, headerSize.getRows()+1);
-    private TerminalPosition errorPosition = new TerminalPosition(1, 75);
+    private TerminalPosition footerPosition = new TerminalPosition(1, 34);
+    private TerminalPosition errorPosition = new TerminalPosition(1, 32);
 
     private TextColor headerFrontColor = new TextColor.RGB(255, 119, 74);
     private TextColor headerBackColor = new TextColor.RGB(21, 15, 64);
@@ -103,17 +106,31 @@ public class STerminal {
         return inputPosition;
     }
 
+    public TerminalSize getFooterSize() {
+        return footerSize;
+    }
+
+    public TerminalSize getErrorSize() {
+        return errorSize;
+    }
+
+    public TerminalPosition getFooterPosition() {
+        return footerPosition;
+    }
+
     public void printHeader(TerminalPosition tp) throws IOException {
         textGraphics.setForegroundColor(headerFrontColor);
         textGraphics.setBackgroundColor(headerBackColor);
-        textGraphics.putString(tp.getColumn(), tp.getRow(), "#    # #   # ####   ####  ##### #   #  ####  #####   ##   #    #    # #   ##  \n");
-        textGraphics.putString(tp.getColumn(), tp.getRow()+1, "#    #  # #  #   # #    #    #   # #  #    #     #  #  #  #    ##   # #  #  # \n");
-        textGraphics.putString(tp.getColumn(), tp.getRow()+2, "#    #   #   #   # #    #   #     #   #         #  #    # #    # #  # # #    #\n");
-        textGraphics.putString(tp.getColumn(), tp.getRow()+3, "# ## #   #   ####  #    #  #      #   #        #   ###### #    #  # # # ######\n");
-        textGraphics.putString(tp.getColumn(), tp.getRow()+4, "##  ##   #   #     #    # #       #   #    #  #    #    # #    #   ## # #    #\n");
-        textGraphics.putString(tp.getColumn(), tp.getRow()+5, "#    #   #   #      #### ######   #    #### ##### #     # #### #    # # #    #\n");
+        textGraphics.putString(tp.getColumn(), tp.getRow(), "                                                                              \n");
+        textGraphics.putString(tp.getColumn(), tp.getRow()+1, "#    # #   # ####   ####  ##### #   #  ####  #####   ##   #    #    # #   ##  \n");
+        textGraphics.putString(tp.getColumn(), tp.getRow()+2, "#    #  # #  #   # #    #    #   # #  #    #     #  #  #  #    ##   # #  #  # \n");
+        textGraphics.putString(tp.getColumn(), tp.getRow()+3, "#    #   #   #   # #    #   #     #   #         #  #    # #    # #  # # #    #\n");
+        textGraphics.putString(tp.getColumn(), tp.getRow()+4, "# ## #   #   ####  #    #  #      #   #        #   ###### #    #  # # # ######\n");
+        textGraphics.putString(tp.getColumn(), tp.getRow()+5, "##  ##   #   #     #    # #       #   #    #  #    #    # #    #   ## # #    #\n");
+        textGraphics.putString(tp.getColumn(), tp.getRow()+6, "#    #   #   #      #### ######   #    #### ##### #     # #### #    # # #    #\n");
+        textGraphics.putString(tp.getColumn(), tp.getRow()+7, "                                                                              \n\n");
         screen.refresh();
-        textGraphics.setBackgroundColor(TextColor.ANSI.DEFAULT);
-        textGraphics.setForegroundColor(TextColor.ANSI.DEFAULT);
+        textGraphics.setBackgroundColor(workspaceBackColor);
+        textGraphics.setForegroundColor(workspaceFrontColor);
     }
 }
