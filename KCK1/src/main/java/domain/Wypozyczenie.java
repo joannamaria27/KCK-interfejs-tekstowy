@@ -96,6 +96,24 @@ public class Wypozyczenie {
         this.pracownik = pracownik;
     }
 
+    public void setParameters(String[] choices){
+        //todo
+//        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("wypozyczalnia");
+//        EntityManager entityManager = entityManagerFactory.createEntityManager();
+//        entityManager.getTransaction().begin();
+//        Pojazd p = entityManager.find(Pojazd.class, Long.parseLong(choices[0]));
+//        entityManager.getTransaction().commit();
+//        id_pojazdu = p;
+        data_wypozyczenia = choices[1];
+        data_oddania=choices[2];
+        kod_dostepu = choices[3];
+
+//todo
+        //id_klienta = choices[4];
+        cena=Float.parseFloat(choices[5]);
+        pracownik=choices[6];
+
+    }
 
     public Wypozyczenie(String[] choices){ //, Pojazd p, Klient k){
 
