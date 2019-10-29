@@ -2,6 +2,7 @@ package layout;
 
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.input.KeyStroke;
+import com.mysql.cj.xdevapi.Client;
 import domain.Klient;
 import domain.Pojazd;
 import domain.Wypozyczenie;
@@ -58,10 +59,11 @@ public class Printer {
     }
 
     public static int printClientMenu() throws IOException, InterruptedException {
-        int options = 2;
+        int options = 3;
         optionsTexts = new String[options];
         optionsTexts[0] = "1. Dodaj";
         optionsTexts[1] = "2. Usuń";
+        optionsTexts[2] = "3. Wypisz";
 
         STerminal sTerminal = STerminal.getInstance();
         int workspaceColumn = sTerminal.getWorkspacePosition().getColumn();
@@ -71,12 +73,14 @@ public class Printer {
         sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow, "Wybierz akcję dotyczącą klienta", SGR.BOLD);
         sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 1, optionsTexts[0], SGR.REVERSE);
         sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 2, optionsTexts[1]);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 3, optionsTexts[2]);
         sTerminal.getScreen().refresh();
 
         int choice = UserInput.chooseOption(options);
         if (choice == -1) return -1;
         else if (choice == 1) printAddClientMenu();
         else if (choice == 2) printDeleteClientMenu();
+        else if (choice == 3) printAllClient();
 
 
         return 0;
@@ -126,10 +130,10 @@ public class Printer {
         int choice = UserInput.chooseOption(Printer.getCarMenuOptions());
         if (choice == -1) return -1;
         else if (choice == 1) printCarInputMenu();
-        else if(choice == 2) printCarDeleteMenu();
-        else if(choice == 3) printCarEditMenu();
-        else if(choice == 4) printCarRentalMenu();
-        else if(choice == 5) printAllCars();
+        else if (choice == 2) printCarDeleteMenu();
+        else if (choice == 3) printCarEditMenu();
+        else if (choice == 4) printCarRentalMenu();
+        else if (choice == 5) printAllCars();
 
         return 0;
 
@@ -187,7 +191,7 @@ public class Printer {
         DBConnector.getInstance().start();
         Pojazd pojazd = DBConnector.getInstance().entityManager.find(Pojazd.class, Long.parseLong(choice[0]));
         DBConnector.getInstance().stop();
-        if(pojazd == null){
+        if (pojazd == null) {
             sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie ma pojazdu o podanym ID");
             return -1;
         }
@@ -201,7 +205,7 @@ public class Printer {
 //        }
         sTerminal.getScreen().refresh();
 
-        sTerminal.getTextGraphics().putString(sTerminal.getWorkspacePosition().getColumn()+3, sTerminal.getWorkspacePosition().getRow() + 8, "Aktualne dane:", SGR.BOLD);
+        sTerminal.getTextGraphics().putString(sTerminal.getWorkspacePosition().getColumn() + 3, sTerminal.getWorkspacePosition().getRow() + 8, "Aktualne dane:", SGR.BOLD);
         //sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + +5, list.get(0).getId() + " - " + list.get(0).getMarka()+" - "+list.get(0).getModel()+" - "+list.get(0).getDostepnosc()+" - "+list.get(0).getId_ubezpieczenia()+" - "+list.get(0).getStan_pojazdu()+" - "+list.get(0).getTyp());
 
         optionsTexts = new String[5];
@@ -217,10 +221,8 @@ public class Printer {
         sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 13, optionsTexts[4] + pojazd.getDostepnosc());
 
         String[] choices = UserInput.getUserInput(optionsTexts.length);
-        
+
         //printCarInputMenu();
-
-
 
 
         return 0;
@@ -252,8 +254,7 @@ public class Printer {
             sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie ma pojazdu o tym id");
             dbConnector.stop();
             return -1;
-        }
-        else dbConnector.deletePojazd(pojazd);
+        } else dbConnector.deletePojazd(pojazd);
         dbConnector.stop();
 
         return 0;
@@ -310,7 +311,7 @@ public class Printer {
         else if (choice == 1) printBicycleInputMenu();
 //        else if(choice == 2) printBicycleDeleteMenu();
 //        else if(choice == 3) printBicycleEditMenu();
-        else if(choice == 4) printBicycleRentalMenu();
+        else if (choice == 4) printBicycleRentalMenu();
 //        else if(choice == 5) printBicycle();
 
 
@@ -391,7 +392,7 @@ public class Printer {
         else if (choice == 1) printScooterInputMenu();
 //        else if(choice == 2) printScooterDeleteMenu();
 //        else if(choice == 3) printScooterEditMenu();
-        else if(choice == 4) printScooterRentalMenu();
+        else if (choice == 4) printScooterRentalMenu();
 //        else if(choice == 5) printScooter();
 
         return 0;
@@ -487,6 +488,7 @@ public class Printer {
         return 0;
 
     }
+
     public static int printCarRentalMenu() throws IOException, InterruptedException {
 
         int options = 6, localMargin = 10;
@@ -527,8 +529,8 @@ public class Printer {
         Wypozyczenie wypozyczenie = new Wypozyczenie(choices);
 
         dbConnector.start();
-        Pojazd pojazd = (Pojazd)dbConnector.entityManager.find(Pojazd.class, Long.parseLong(choices[0]));
-        if(pojazd == null){
+        Pojazd pojazd = (Pojazd) dbConnector.entityManager.find(Pojazd.class, Long.parseLong(choices[0]));
+        if (pojazd == null) {
             sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie ma pojazdu o tym id");
             sTerminal.getScreen().refresh();
             System.out.println("Nie ma pojazu o tym id");
@@ -537,7 +539,7 @@ public class Printer {
             return -1;
         }
         Klient klient = dbConnector.entityManager.find(Klient.class, Long.parseLong(choices[4]));
-        if(klient == null){
+        if (klient == null) {
             sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie ma klienta o tym id");
             sTerminal.getScreen().refresh();
             System.out.println("Nie ma klienta o tym id");
@@ -648,6 +650,45 @@ public class Printer {
         return 0;
     }
 
+    public static int printAllClient() throws IOException {
+        List<Klient> list = DBConnector.getInstance().entityManager.createQuery("SELECT a FROM Klient a", Klient.class).getResultList();
+        for (Klient klient : list) {
+            System.out.println(klient.getId());
+        }
+
+        STerminal sTerminal = STerminal.getInstance();
+
+        Printer.clearWorkingArea();
+        int workspaceColumn = sTerminal.getMenuPosition().getColumn();
+        int workspaceRow = sTerminal.getMenuPosition().getRow();
+        int margin = sTerminal.getMargin();
+        Printer.clearWorkingArea();
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 1, "Znalezieni klienci", SGR.BOLD);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 3, "ID - Nr prawa jazdy - Nazwisko - Imie - Data urodzenia - Adres - PESEL - Telefon", SGR.ITALIC);
+
+        if (list.size() == 0)
+            sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 5, "Brak klientow");
+        for (int i = 0; i < list.size(); i++) {
+            sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + i + 5, list.get(i).getId() + " - " + list.get(i).getNr_prawa_jazdy() + " - " + list.get(i).getNazwisko() + " - " + list.get(i).getImie() + " - " + list.get(i).getData_urodzenia() + " - " + list.get(i).getAdres() + " - " + list.get(i).getPesel() + " - " + list.get(i).getTelefon());
+        }
+        sTerminal.getScreen().refresh();
+
+        KeyStroke keyPressed;
+        while (true) {
+            keyPressed = sTerminal.getTerminal().pollInput();
+            if (keyPressed != null) {
+                switch (keyPressed.getKeyType()) {
+                    case Enter:
+                    case Escape:
+                        return 0;
+                }
+            }
+        }
+
+
+        //return 0;
+    }
+
     public static int printDeleteClientMenu() throws IOException {
         int options = 1, localMargin = 10;
         optionsTexts = new String[options];
@@ -675,8 +716,7 @@ public class Printer {
             sTerminal.getTextGraphics().putString(sTerminal.getErrorPosition().getColumn(), sTerminal.getErrorPosition().getRow(), "Nie ma klienta o tym id");
             dbConnector.stop();
             return -1;
-        }
-        else dbConnector.deleteKlient(klient);
+        } else dbConnector.deleteKlient(klient);
         dbConnector.stop();
 
 
@@ -684,7 +724,7 @@ public class Printer {
     }
 
     public static void printFooter() throws IOException {
-        STerminal.getInstance().getTextGraphics().putString(STerminal.getInstance().getFooterPosition().getColumn()+17, STerminal.getInstance().getFooterPosition().getRow(), "All Rights Reserved © Klimek & Gawędzki");
+        STerminal.getInstance().getTextGraphics().putString(STerminal.getInstance().getFooterPosition().getColumn() + 17, STerminal.getInstance().getFooterPosition().getRow(), "All Rights Reserved © Klimek & Gawędzki");
     }
 
     public static int printAllCars() throws IOException {
@@ -700,20 +740,21 @@ public class Printer {
         int workspaceRow = sTerminal.getMenuPosition().getRow();
         int margin = sTerminal.getMargin();
         Printer.clearWorkingArea();
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow+1, "Znalezione pojazdy", SGR.BOLD);
-        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow+3, "ID - Marka - Model - Dostępność - ID ubezpieczenia - Stan - Typ", SGR.ITALIC);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 1, "Znalezione pojazdy", SGR.BOLD);
+        sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 3, "ID - Marka - Model - Dostępność - ID ubezpieczenia - Stan - Typ", SGR.ITALIC);
 
-        if(list.size() == 0) sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 5, "Brak pojazdów");
+        if (list.size() == 0)
+            sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + 5, "Brak pojazdów");
         for (int i = 0; i < list.size(); i++) {
-            sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + i+5, list.get(i).getId() + " - " + list.get(i).getMarka()+" - "+list.get(i).getModel()+" - "+list.get(i).getDostepnosc()+" - "+list.get(i).getId_ubezpieczenia()+" - "+list.get(i).getStan_pojazdu()+" - "+list.get(i).getTyp());
+            sTerminal.getTextGraphics().putString(workspaceColumn + margin, workspaceRow + i + 5, list.get(i).getId() + " - " + list.get(i).getMarka() + " - " + list.get(i).getModel() + " - " + list.get(i).getDostepnosc() + " - " + list.get(i).getId_ubezpieczenia() + " - " + list.get(i).getStan_pojazdu() + " - " + list.get(i).getTyp());
         }
         sTerminal.getScreen().refresh();
 
         KeyStroke keyPressed;
-        while(true){
+        while (true) {
             keyPressed = sTerminal.getTerminal().pollInput();
             if (keyPressed != null) {
-                switch(keyPressed.getKeyType()){
+                switch (keyPressed.getKeyType()) {
                     case Enter:
                     case Escape:
                         return 0;
